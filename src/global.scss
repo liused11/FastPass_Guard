@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Global Typography: Inter (EN/numbers) + Prompt (Thai) ── */
+* {
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+ion-content,
+ion-card,
+ion-item,
+ion-label,
+ion-button,
+ion-input,
+ion-alert,
+.alert-title,
+.alert-message,
+.alert-button {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+}
+
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
@@ -39,3 +57,94 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 /* @import "@ionic/angular/css/palettes/dark.system.css"; */
+
+/* ── Custom Confirmation Alert ── */
+.confirm-alert {
+  --backdrop-opacity: 0.6;
+
+  .alert-wrapper {
+    border-radius: 20px !important;
+    min-width: 300px !important;
+    width: 300px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  .alert-head {
+    padding: 24px 24px 8px;
+  }
+
+  .alert-title {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    color: #0F172A !important;
+  }
+
+  .alert-message {
+    font-size: 14px !important;
+    color: #475569 !important;
+    padding: 4px 24px 16px !important;
+    line-height: 1.6 !important;
+    white-space: pre-line;
+  }
+
+  .alert-button-group {
+    padding: 4px 16px 20px !important;
+    gap: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    /* first button in array = top */
+  }
+
+  .alert-button {
+    border-radius: 14px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    padding: 15px 20px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    min-height: 52px !important;
+    text-align: center !important;
+    letter-spacing: 0.5px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .alert-btn-cancel {
+    background: #F1F5F9 !important;
+    color: #64748B !important;
+    border: 1.5px solid #E2E8F0 !important;
+    order: 99 !important;
+    /* always last visually */
+  }
+
+  .alert-btn-open {
+    background: linear-gradient(135deg, #10B981, #059669) !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
+  }
+
+  .alert-btn-hold {
+    background: linear-gradient(135deg, #F59E0B, #D97706) !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35) !important;
+  }
+
+  .alert-btn-close {
+    background: linear-gradient(135deg, #1E293B, #334155) !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2) !important;
+  }
+}
+
+.confirm-alert-danger {
+  .alert-title {
+    color: #991B1B !important;
+  }
+
+  .alert-btn-emergency {
+    background: linear-gradient(135deg, #EF4444, #DC2626) !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35) !important;
+  }
+}

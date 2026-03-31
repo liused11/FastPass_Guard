@@ -1,58 +1,247 @@
-/* ---- Scan Button (Large) ---- */
+/* ─── TOP BAR ─── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0F172A;
+  padding: 14px 18px;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar-icon {
+  font-size: 24px;
+  color: #2563EB;
+}
+.topbar-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.4px;
+  line-height: 1.1;
+}
+.topbar-sub {
+  display: block;
+  font-size: 11px;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+/* ─── SCAN HERO ─── */
+.scan-hero {
+  background: linear-gradient(170deg, #1E293B, #0F172A);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 20px 40px; /* extra top pad for safe area */
+}
+.scan-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
 .scan-btn {
-  width: 180px;
-  height: 180px;
+  width: 170px;
+  height: 170px;
   background: white;
   border: none;
   border-radius: 28px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-  display: inline-flex;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.15s ease;
-
-  &:active { transform: scale(0.94); }
+  transition: transform 0.15s;
+  &:active { transform: scale(0.93); }
+}
+.scan-hint {
+  margin-top: 14px;
+  font-size: 12px;
+  color: #94A3B8;
+  font-weight: 500;
 }
 
-/* ---- Result Card ---- */
+/* ─── CONTENT BODY ─── */
+.content-body {
+  background: #F1F5F9;
+  border-radius: 24px 24px 0 0;
+  margin-top: -20px;
+  padding: 22px 18px 0;
+}
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 1.8px;
+  margin: 0 0 10px;
+}
+
+/* ─── PLATE INPUT ─── */
+.plate-input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.plate-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #E2E8F0;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  &.input-active { border-color: #0F172A; }
+}
+.plate-icon {
+  font-size: 20px;
+  color: #94A3B8;
+  padding-left: 14px;
+  flex-shrink: 0;
+}
+.search-btn {
+  background: #0F172A;
+  border: none;
+  border-radius: 14px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.12s;
+  &:active   { transform: scale(0.93); }
+  &:disabled { opacity: 0.3; pointer-events: none; }
+}
+
+/* ─── RESULT CARD ─── */
 .result-card {
   background: white;
   border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 8px 28px rgba(37,99,235,0.10);
-  margin-bottom: 8px;
-  border: 1px solid #E0EAFF;
-  animation: slideUp 0.25s ease;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+  border: 1px solid #E2E8F0;
+  margin-bottom: 20px;
+  animation: slideUp 0.2s ease;
 }
-
 @keyframes slideUp {
-  from { opacity:0; transform: translateY(16px); }
-  to   { opacity:1; transform: translateY(0); }
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
 }
-
-/* ---- Badges ---- */
+.rc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+.rc-plate {
+  display: block;
+  font-size: 28px;
+  font-weight: 900;
+  color: #0F172A;
+  letter-spacing: 2px;
+}
+.rc-model {
+  display: block;
+  font-size: 12px;
+  color: #94A3B8;
+  font-weight: 500;
+  margin-top: 2px;
+}
 .badge-confirmed {
-  background: #DCFCE7;
-  color: #16A34A;
+  background: #D1FAE5;
+  color: #065F46;
   font-size: 11px;
   font-weight: 700;
   padding: 5px 12px;
   border-radius: 99px;
   white-space: nowrap;
 }
-.badge-other {
-  background: #FEF9C3;
-  color: #B45309;
+
+/* ─── LOCATION BLOCK ─── */
+.rc-location {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 14px;
+  padding: 14px;
+}
+.rc-location-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rc-building {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1E40AF;
+}
+.rc-sub-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.rc-chip {
+  background: white;
+  border: 1px solid #BFDBFE;
+  color: #2563EB;
   font-size: 11px;
   font-weight: 700;
-  padding: 5px 12px;
-  border-radius: 99px;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+.rc-chip-slot {
+  background: #2563EB;
+  color: white;
+  border-color: #2563EB;
 }
 
-/* ---- Confirm Buttons ---- */
-.confirm-btn {
+/* ─── USER BLOCK ─── */
+.rc-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rc-user-avatar {
+  width: 44px;
+  height: 44px;
+  background: #EFF6FF;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.rc-user-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+}
+.rc-user-role {
+  font-size: 12px;
+  color: #64748B;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ─── ACTION BUTTONS ─── */
+.rc-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+.act-btn {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -61,50 +250,71 @@
   padding: 16px;
   border: none;
   border-radius: 14px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   cursor: pointer;
-  transition: transform 0.12s, box-shadow 0.2s;
-
+  transition: transform 0.12s;
   &:active { transform: scale(0.96); }
 }
 .btn-checkin {
-  background: linear-gradient(135deg, #22C55E, #16A34A);
+  background: linear-gradient(135deg, #10B981, #059669);
   color: white;
-  box-shadow: 0 6px 16px rgba(34,197,94,0.3);
+  box-shadow: 0 6px 16px rgba(16,185,129,0.3);
 }
 .btn-checkout {
   background: #F1F5F9;
-  color: #475569;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  color: #334155;
+  border: 1.5px solid #E2E8F0;
 }
 
-/* ---- Activity Log Rows ---- */
+/* ─── LOG ROWS ─── */
 .log-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
   background: white;
-  padding: 14px 16px;
   border-radius: 14px;
+  padding: 14px;
   margin-bottom: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   border: 1px solid #F1F5F9;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
-.log-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+.log-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.log-badge {
+.log-detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.log-plate {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: 1px;
+}
+.log-location {
   font-size: 11px;
+  color: #94A3B8;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.log-badge {
+  font-size: 10px;
   font-weight: 700;
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 99px;
   white-space: nowrap;
+  flex-shrink: 0;
 }

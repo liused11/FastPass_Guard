@@ -1,81 +1,96 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar style="--background: #2563EB; --color: white;">
-    <div class="flex items-center gap-2 px-4 py-2">
-      <ion-icon name="shield-checkmark" style="font-size:22px; color:white;"></ion-icon>
-      <span style="font-size:18px; font-weight:700; color:white; letter-spacing:0.5px;">FastPass Guard</span>
+<ion-content style="--background: #F1F5F9;">
+
+  <!-- ══ GATE STATUS — TOP ══ -->
+  <div class="gate-card" [class.gate-open]="gateStatus === 'Open'" [class.gate-closed]="gateStatus === 'Closed'"
+    [class.gate-moving]="gateStatus === 'Moving'">
+
+    <!-- Location block -->
+    <div class="gate-location-block">
+      <span class="gate-building-name">{{ building }}</span>
+      <span class="gate-floor-tag">
+
+        {{ floor }}
+      </span>
     </div>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content style="--background: #F0F4FF;">
-
-  <!-- Status Banner -->
-  <div
-    [ngClass]="{
-      'status-closed': gateStatus === 'Closed',
-      'status-open':   gateStatus === 'Open',
-      'status-moving': gateStatus === 'Moving'
-    }"
-    style="padding: 28px 24px 36px; text-align:center; transition: background 0.4s;">
-
-    <p style="font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; opacity:0.75; margin:0 0 6px;">GATE STATUS</p>
-
-    <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
-      <div class="status-dot"
-           [ngClass]="{
-             'dot-red':    gateStatus === 'Closed',
-             'dot-green':  gateStatus === 'Open',
-             'dot-yellow': gateStatus === 'Moving'
-           }">
+    <div class="gate-card-inner">
+      <div>
+        <p class="gate-label">GATE STATUS</p>
+        <p class="gate-value">{{ gateStatus | uppercase }}</p>
+        <p class="gate-sub">{{ gateStatus === 'Moving' ? 'กำลังเคลื่อน...' : gateStatus === 'Open' ? 'ประตูเปิดอยู่' :
+          'ประตูปิดอยู่' }}</p>
       </div>
-      <span style="font-size:36px; font-weight:900; letter-spacing:3px;">{{ gateStatus | uppercase }}</span>
+      <div class="gate-icon-box">
+        <ion-icon [name]="gateStatus === 'Open' ? 'lock-open' : gateStatus === 'Moving' ? 'sync' : 'lock-closed'"
+          class="gate-icon" [class.spin]="gateStatus === 'Moving'">
+        </ion-icon>
+      </div>
     </div>
   </div>
 
-  <div style="background:#F0F4FF; border-radius:24px 24px 0 0; margin-top:-20px; padding:24px 20px 32px;">
+  <!-- ══ BODY ══ -->
+  <div class="body-zone">
 
-    <!-- Open / Close Buttons -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
-      <button class="action-btn btn-green"
-              (click)="openGate()"
-              [disabled]="gateStatus === 'Open' || gateStatus === 'Moving'">
-        <ion-icon name="arrow-up-circle" style="font-size:28px; margin-bottom:4px;"></ion-icon>
-        <span>OPEN</span>
-      </button>
-      <button class="action-btn btn-red"
-              (click)="closeGate()"
-              [disabled]="gateStatus === 'Closed' || gateStatus === 'Moving'">
-        <ion-icon name="arrow-down-circle" style="font-size:28px; margin-bottom:4px;"></ion-icon>
-        <span>CLOSE</span>
-      </button>
-    </div>
-
-    <!-- Emergency -->
-    <button class="action-btn btn-emergency" (click)="emergencyOpen()">
-      <ion-icon name="warning" style="font-size:24px; margin-bottom:2px;"></ion-icon>
-      <span>EMERGENCY OPEN</span>
-    </button>
-
-    <!-- Divider -->
-    <div style="border-top:1px solid #DDE3F0; margin:24px 0;"></div>
-
-    <!-- Vehicle Type -->
-    <p style="font-size:11px; font-weight:700; color:#6B7280; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:12px;">VEHICLE TYPE</p>
-    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-      <button class="vtype-btn" [class.vtype-active]="vehicleType === 'car'" (click)="vehicleType='car'">
-        <ion-icon name="car-sport" style="font-size:22px;"></ion-icon>
-        <span>Car</span>
-      </button>
-      <button class="vtype-btn" [class.vtype-active]="vehicleType === 'motorcycle'" (click)="vehicleType='motorcycle'">
-        <ion-icon name="bicycle" style="font-size:22px;"></ion-icon>
-        <span>Moto</span>
-      </button>
-      <button class="vtype-btn" [class.vtype-active]="vehicleType === 'ev'" (click)="vehicleType='ev'">
-        <ion-icon name="flash" style="font-size:22px;"></ion-icon>
-        <span>EV</span>
+    <!-- ── MODE INDICATOR ── -->
+    <div class="mode-indicator">
+      <div class="mode-indicator-left">
+        <span class="pulse-dot" [class.dot-green]="mode === 'auto'" [class.dot-amber]="mode === 'manual'"></span>
+        <div>
+          <span class="mode-badge" [class.mode-badge-auto]="mode === 'auto'"
+            [class.mode-badge-manual]="mode === 'manual'">
+            {{ mode === 'auto' ? 'AUTO LPR' : 'MANUAL' }}
+          </span>
+          <span class="mode-caption">{{ mode === 'auto' ? 'ระบบควบคุมประตูอัตโนมัติ' : 'ควบคุมประตูด้วยตนเอง' }}</span>
+        </div>
+      </div>
+      <button class="mode-switch-btn" (click)="toggleMode()">
+        <ion-icon [name]="mode === 'auto' ? 'hand-left-outline' : 'sync-outline'" style="font-size:15px;"></ion-icon>
+        <span>{{ mode === 'auto' ? 'Manual' : 'Auto' }}</span>
       </button>
     </div>
 
+    <!-- ── MANUAL CONTROLS ── -->
+    <div class="controls-zone" [class.controls-disabled]="mode === 'auto'">
+
+      <div class="controls-header">
+        <p class="section-label">MANUAL CONTROLS</p>
+        <span class="controls-lock-badge" *ngIf="mode === 'auto'">
+          <ion-icon name="lock-closed-outline" style="font-size:12px; vertical-align:middle;"></ion-icon>
+          Auto Mode Active
+        </span>
+      </div>
+
+      <!-- Vehicle Type -->
+
+
+      <!-- Open / Close -->
+      <div class="btn-row">
+        <button class="ctrl-btn btn-open" (click)="manualOpen()"
+          [disabled]="mode === 'auto' || gateStatus === 'Open' || gateStatus === 'Moving'">
+          <ion-icon name="arrow-up-circle"></ion-icon>
+          <span>Manual Open</span>
+        </button>
+        <button class="ctrl-btn btn-close" (click)="forceClose()"
+          [disabled]="mode === 'auto' || gateStatus === 'Closed' || gateStatus === 'Moving'">
+          <ion-icon name="arrow-down-circle"></ion-icon>
+          <span>Force Close</span>
+        </button>
+      </div>
+
+      <!-- Hold Open -->
+      <button class="hold-btn" [class.hold-active]="holdOpen" [disabled]="mode === 'auto'" (click)="toggleHoldOpen()">
+        <ion-icon [name]="holdOpen ? 'lock-open' : 'lock-open-outline'"></ion-icon>
+        <span>{{ holdOpen ? 'HOLD OPEN — TAP TO RELEASE' : 'HOLD OPEN' }}</span>
+      </button>
+
+      <!-- Trigger Emergency Alert -->
+      <button class="emergency-btn" [class.emergency-active]="emergencyTriggered" [disabled]="mode === 'auto'"
+        (click)="triggerEmergencyAlert()">
+        <ion-icon [name]="emergencyTriggered ? 'checkmark-circle-outline' : 'megaphone-outline'"></ion-icon>
+        <span>{{ emergencyTriggered ? 'ส่งสัญญาณแล้ว' : 'EMERGENCY' }}</span>
+      </button>
+
+    </div>
   </div>
 
 </ion-content>

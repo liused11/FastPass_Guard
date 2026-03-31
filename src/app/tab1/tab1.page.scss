@@ -1,93 +1,322 @@
-/* ---- Status Banner Colors ---- */
-.status-closed {
-  background: linear-gradient(135deg, #EF4444, #DC2626);
-  color: white;
+/* ══ GATE CARD (top of screen) ══ */
+.gate-card {
+  padding: 52px 22px 24px; /* top safe-area padding */
+  transition: background 0.35s;
 }
-.status-open {
-  background: linear-gradient(135deg, #22C55E, #16A34A);
-  color: white;
-}
-.status-moving {
-  background: linear-gradient(135deg, #F59E0B, #D97706);
-  color: white;
-}
+.gate-closed { background: linear-gradient(160deg, #0F172A, #1E293B); }
+.gate-open   { background: linear-gradient(160deg, #022C22, #064E3B); }
+.gate-moving { background: linear-gradient(160deg, #431407, #78350F); }
 
-/* ---- Status Dot ---- */
-.status-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  animation: pulse 1.5s infinite;
-}
-.dot-red    { background: rgba(255,255,255,0.85); box-shadow: 0 0 0 4px rgba(255,255,255,0.3); }
-.dot-green  { background: rgba(255,255,255,0.85); box-shadow: 0 0 0 4px rgba(255,255,255,0.3); }
-.dot-yellow { background: rgba(255,255,255,0.85); box-shadow: 0 0 0 4px rgba(255,255,255,0.3); }
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50%       { transform: scale(1.3); opacity: 0.6; }
-}
-
-/* ---- Action Buttons ---- */
-.action-btn {
-  width: 100%;
+/* ── Location Block ── */
+.gate-location-block {
   display: flex;
-  flex-direction: column;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.gate-building-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.95);
+  letter-spacing: 0.3px;
+}
+.gate-floor-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.1);
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.15);
+  white-space: nowrap;
+}
+.gate-card-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gate-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: rgba(255,255,255,0.4);
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+.gate-value {
+  font-size: 52px;
+  font-weight: 900;
+  color: white;
+  letter-spacing: 4px;
+  margin: 0;
+  line-height: 1;
+}
+.gate-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 500;
+  margin: 8px 0 0;
+}
+.gate-icon-box {
+  width: 72px;
+  height: 72px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 22px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px 12px;
-  border: none;
-  border-radius: 18px;
-  font-size: 15px;
+}
+.gate-icon {
+  font-size: 36px;
+  color: rgba(255,255,255,0.75);
+}
+.gate-icon.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ══ BODY ZONE ══ */
+.body-zone {
+  background: #F1F5F9;
+  border-radius: 24px 24px 0 0;
+  padding: 18px 18px 40px;
+  margin-top: 0;
+}
+
+/* ── Mode Indicator ── */
+.mode-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1E293B;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+.mode-indicator-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mode-badge {
+  display: block;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+.mode-badge-auto   { color: #34D399; }
+.mode-badge-manual { color: #F59E0B; }
+.mode-caption {
+  display: block;
+  font-size: 11px;
+  color: #64748B;
+  font-weight: 500;
+  margin-top: 3px;
+}
+.mode-switch-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #334155;
+  border: none;
+  color: #CBD5E1;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 9px 0;
+  min-width: 90px;   /* fixed width — same for "Manual" and "Auto" */
+  border-radius: 99px;
   cursor: pointer;
-  transition: transform 0.12s ease, opacity 0.2s;
-  gap: 4px;
-
-  &:active { transform: scale(0.96); }
-  &:disabled { opacity: 0.35; pointer-events: none; }
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  transition: background 0.15s;
+  &:active { background: #475569; }
 }
 
-.btn-green {
-  background: linear-gradient(135deg, #22C55E, #16A34A);
-  color: white;
-  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
+/* ── Pulse Dot ── */
+.pulse-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
-.btn-red {
-  background: linear-gradient(135deg, #EF4444, #DC2626);
-  color: white;
-  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+.dot-green {
+  background: #34D399;
+  animation: pulse-green 1.8s ease-out infinite;
 }
-.btn-emergency {
-  background: linear-gradient(135deg, #F59E0B, #D97706);
-  color: white;
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
-  font-size: 16px;
-  letter-spacing: 2px;
+.dot-amber {
+  background: #F59E0B;
+  animation: pulse-amber 1.8s ease-out infinite;
+}
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); }
+  50%       { box-shadow: 0 0 0 9px rgba(52,211,153,0); }
+}
+@keyframes pulse-amber {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.5); }
+  50%       { box-shadow: 0 0 0 9px rgba(245,158,11,0); }
 }
 
-/* ---- Vehicle Type Buttons ---- */
+/* ══ CONTROLS ZONE ══ */
+.controls-zone {
+  transition: opacity 0.25s;
+}
+.controls-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.controls-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 1.8px;
+  margin: 0;
+  text-transform: uppercase;
+}
+.controls-lock-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94A3B8;
+  background: #E2E8F0;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+/* ── Vehicle Type ── */
+.vtype-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
 .vtype-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   padding: 14px 8px;
   border-radius: 14px;
   border: 2px solid #E2E8F0;
   background: white;
   color: #64748B;
   font-size: 12px;
-  font-weight: 600;
-  gap: 4px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.15s ease;
+  ion-icon { font-size: 22px; }
+  transition: all 0.15s;
+  &:active { transform: scale(0.95); }
 }
 .vtype-active {
-  border-color: #2563EB;
-  background: #EEF2FF;
-  color: #2563EB;
-  box-shadow: 0 4px 12px rgba(37,99,235,0.15);
+  border-color: #10B981;
+  background: #ECFDF5;
+  color: #065F46;
+}
+
+/* ── Open / Close ── */
+.btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.ctrl-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 22px 12px;
+  border: none;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform 0.12s;
+  ion-icon { font-size: 30px; }
+  &:active   { transform: scale(0.94); }
+  &:disabled { opacity: 0.35; }
+}
+.btn-open {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: white;
+  box-shadow: 0 6px 20px rgba(16,185,129,0.3);
+}
+.btn-close {
+  background: linear-gradient(135deg, #1E293B, #334155);
+  color: white;
+  box-shadow: 0 6px 20px rgba(15,23,42,0.2);
+}
+
+/* ── Hold Open (Amber) ── */
+.hold-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px;
+  border: 2px solid #D97706;
+  background: #FFFBEB;
+  border-radius: 18px;
+  color: #B45309;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  ion-icon { font-size: 22px; }
+  transition: all 0.2s;
+  &:disabled { opacity: 0.3; }
+}
+.hold-active {
+  background: #F59E0B;
+  color: white;
+  border-color: #D97706;
+  box-shadow: 0 6px 24px rgba(245,158,11,0.35);
+  animation: hold-pulse 2s ease-in-out infinite;
+}
+@keyframes hold-pulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(245,158,11,0.35); }
+  50%       { box-shadow: 0 6px 40px rgba(245,158,11,0.65); }
+}
+
+/* ── Emergency Alert Button (แจ้งเหตุ - Red) ── */
+.emergency-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px;
+  border: 2px solid #EF4444;
+  background: #FFF1F2;
+  border-radius: 18px;
+  color: #DC2626;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  ion-icon { font-size: 22px; }
+  transition: all 0.25s;
+  &:active { transform: scale(0.97); }
+  &:disabled { opacity: 0.3; }
+}
+/* Triggered state — turns green to confirm signal was sent */
+.emergency-active {
+  background: #ECFDF5;
+  border-color: #10B981;
+  color: #065F46;
+  animation: sent-pulse 1.5s ease-in-out 3;
+}
+@keyframes sent-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
 }
