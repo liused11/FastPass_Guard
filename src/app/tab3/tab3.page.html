@@ -1,46 +1,108 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-title class="font-bold tracking-wide text-white">Guard Profile</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background: #2563EB; --color: white;">
+    <div class="flex items-center gap-2 px-4 py-2">
+      <ion-icon name="person-outline" style="font-size:22px; color:white;"></ion-icon>
+      <span style="font-size:18px; font-weight:700; color:white; letter-spacing:0.5px;">My Profile</span>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding bg-slate-50">
-  <div class="relative flex flex-col items-center mt-10">
-    <div class="w-28 h-28 bg-blue-100 rounded-full flex items-center justify-center border-4 border-white shadow-lg z-10">
-      <ion-icon name="shield-checkmark-outline" class="text-5xl text-blue-600"></ion-icon>
-    </div>
-    
-    <div class="bg-white w-full rounded-2xl shadow-sm pt-16 pb-6 px-6 -mt-14 text-center border border-gray-100">
-      <h2 class="text-2xl font-bold text-gray-800">Officer John</h2>
-      <p class="text-blue-500 font-semibold mb-6">Security Supervisor</p>
+<ion-content style="--background: #F0F4FF;">
 
-      <div class="grid grid-cols-2 gap-4 mb-6 border-t border-b border-gray-100 py-4">
+  <!-- Profile Hero -->
+  <div style="background: linear-gradient(160deg, #2563EB, #1D4ED8); padding: 36px 20px 64px; text-align:center;">
+    <div class="avatar-ring">
+      <div class="avatar-inner">
+        <ion-icon name="shield-checkmark" style="font-size:48px; color:#2563EB;"></ion-icon>
+      </div>
+    </div>
+    <h2 style="color:white; font-size:22px; font-weight:800; margin:16px 0 4px; letter-spacing:0.3px;">Officer John</h2>
+    <span class="role-badge">Security Supervisor</span>
+    <p style="color: rgba(255,255,255,0.65); font-size:12px; margin:10px 0 0; font-weight:500;">Gate A · Main Entrance · Shift 08:00–20:00</p>
+  </div>
+
+  <div style="background:#F0F4FF; border-radius:24px 24px 0 0; margin-top:-24px; padding:24px 20px 40px;">
+
+    <!-- Stats Row -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:24px;">
+      <div class="stat-card">
+        <div class="stat-number" style="color:#2563EB;">128</div>
+        <div class="stat-label">Check-ins</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#7C3AED;">115</div>
+        <div class="stat-label">Check-outs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#16A34A;">12</div>
+        <div class="stat-label">Today</div>
+      </div>
+    </div>
+
+    <!-- Shift Info -->
+    <div class="info-card" style="margin-bottom:20px;">
+      <div class="info-header">
+        <ion-icon name="time-outline" style="color:#2563EB; font-size:18px;"></ion-icon>
+        <span>Current Shift</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
         <div>
-          <div class="text-sm text-gray-400">Total Check-ins</div>
-          <div class="text-2xl font-bold text-gray-800">128</div>
+          <div style="font-size:22px; font-weight:800; color:#1E293B;">08:00 – 20:00</div>
+          <div style="font-size:12px; color:#94A3B8; margin-top:2px; font-weight:500;">Tuesday, 1 April 2026</div>
         </div>
-        <div>
-          <div class="text-sm text-gray-400">Total Check-outs</div>
-          <div class="text-2xl font-bold text-gray-800">115</div>
-        </div>
+        <span style="background:#DCFCE7; color:#16A34A; font-size:11px; font-weight:700; padding:6px 14px; border-radius:99px; letter-spacing:0.5px;">● ACTIVE</span>
       </div>
 
-      <ion-list class="bg-transparent text-left" lines="none">
-        <ion-item class="bg-slate-50 rounded-xl mb-3 shadow-none border border-gray-100">
-          <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
-          <ion-label>Edit Profile</ion-label>
-          <ion-icon name="chevron-forward-outline" slot="end" class="text-gray-400"></ion-icon>
-        </ion-item>
-        <ion-item class="bg-slate-50 rounded-xl mb-3 shadow-none border border-gray-100">
-          <ion-icon name="settings-outline" slot="start" color="primary"></ion-icon>
-          <ion-label>Settings</ion-label>
-          <ion-icon name="chevron-forward-outline" slot="end" class="text-gray-400"></ion-icon>
-        </ion-item>
-        <ion-item class="bg-red-50 rounded-xl shadow-none border border-red-100 mt-6" detail="false" button>
-          <ion-icon name="log-out-outline" slot="start" color="danger"></ion-icon>
-          <ion-label color="danger" class="font-bold">Log Out</ion-label>
-        </ion-item>
-      </ion-list>
+      <!-- Shift Progress Bar -->
+      <div style="margin-top:16px;">
+        <div style="display:flex; justify-content:space-between; font-size:11px; color:#94A3B8; margin-bottom:6px;">
+          <span>Shift Progress</span>
+          <span>75%</span>
+        </div>
+        <div style="background:#E2E8F0; border-radius:99px; height:8px; overflow:hidden;">
+          <div style="background: linear-gradient(90deg, #2563EB, #60A5FA); width:75%; height:100%; border-radius:99px;"></div>
+        </div>
+      </div>
     </div>
+
+    <!-- Menu Items -->
+    <p style="font-size:11px; font-weight:700; color:#6B7280; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:12px;">ACCOUNT</p>
+
+    <div class="menu-list">
+      <button class="menu-item">
+        <div class="menu-icon-wrap" style="background:#EEF2FF;">
+          <ion-icon name="person-outline" style="font-size:20px; color:#2563EB;"></ion-icon>
+        </div>
+        <span class="menu-label">Edit Profile</span>
+        <ion-icon name="chevron-forward-outline" style="font-size:16px; color:#CBD5E1; margin-left:auto;"></ion-icon>
+      </button>
+
+      <button class="menu-item">
+        <div class="menu-icon-wrap" style="background:#F0FDF4;">
+          <ion-icon name="notifications-outline" style="font-size:20px; color:#16A34A;"></ion-icon>
+        </div>
+        <span class="menu-label">Notifications</span>
+        <ion-icon name="chevron-forward-outline" style="font-size:16px; color:#CBD5E1; margin-left:auto;"></ion-icon>
+      </button>
+
+      <button class="menu-item">
+        <div class="menu-icon-wrap" style="background:#FFF7ED;">
+          <ion-icon name="settings-outline" style="font-size:20px; color:#EA580C;"></ion-icon>
+        </div>
+        <span class="menu-label">Settings</span>
+        <ion-icon name="chevron-forward-outline" style="font-size:16px; color:#CBD5E1; margin-left:auto;"></ion-icon>
+      </button>
+    </div>
+
+    <!-- Logout -->
+    <button class="logout-btn" style="margin-top:28px;">
+      <ion-icon name="log-out-outline" style="font-size:20px;"></ion-icon>
+      <span>Log Out</span>
+    </button>
+
+    <!-- Version -->
+    <p style="text-align:center; color:#CBD5E1; font-size:11px; font-weight:500; margin-top:20px;">FastPass Guard v1.0.0</p>
+
   </div>
+
 </ion-content>

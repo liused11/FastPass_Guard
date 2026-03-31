@@ -1,0 +1,110 @@
+/* ---- Scan Button (Large) ---- */
+.scan-btn {
+  width: 180px;
+  height: 180px;
+  background: white;
+  border: none;
+  border-radius: 28px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+
+  &:active { transform: scale(0.94); }
+}
+
+/* ---- Result Card ---- */
+.result-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 28px rgba(37,99,235,0.10);
+  margin-bottom: 8px;
+  border: 1px solid #E0EAFF;
+  animation: slideUp 0.25s ease;
+}
+
+@keyframes slideUp {
+  from { opacity:0; transform: translateY(16px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ---- Badges ---- */
+.badge-confirmed {
+  background: #DCFCE7;
+  color: #16A34A;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+.badge-other {
+  background: #FEF9C3;
+  color: #B45309;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 99px;
+}
+
+/* ---- Confirm Buttons ---- */
+.confirm-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.2s;
+
+  &:active { transform: scale(0.96); }
+}
+.btn-checkin {
+  background: linear-gradient(135deg, #22C55E, #16A34A);
+  color: white;
+  box-shadow: 0 6px 16px rgba(34,197,94,0.3);
+}
+.btn-checkout {
+  background: #F1F5F9;
+  color: #475569;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* ---- Activity Log Rows ---- */
+.log-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 14px 16px;
+  border-radius: 14px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid #F1F5F9;
+}
+.log-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.log-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 99px;
+  white-space: nowrap;
+}

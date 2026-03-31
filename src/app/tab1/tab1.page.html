@@ -1,59 +1,81 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-title class="font-bold tracking-wide text-white">Gate Control</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background: #2563EB; --color: white;">
+    <div class="flex items-center gap-2 px-4 py-2">
+      <ion-icon name="shield-checkmark" style="font-size:22px; color:white;"></ion-icon>
+      <span style="font-size:18px; font-weight:700; color:white; letter-spacing:0.5px;">FastPass Guard</span>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding bg-slate-50">
-  <div class="h-full">
-    <!-- Gate Status -->
-    <div class="mb-6 p-6 rounded-2xl text-center shadow-sm border transition-all duration-300"
-         [ngClass]="{
-           'bg-red-50 border-red-200 text-red-800': gateStatus === 'Closed',
-           'bg-green-50 border-green-200 text-green-800': gateStatus === 'Open',
-           'bg-yellow-50 border-yellow-200 text-yellow-800': gateStatus === 'Moving'
-         }">
-      <h2 class="text-lg font-semibold mb-1 opacity-80">Gate Status</h2>
-      <div class="text-4xl font-extrabold tracking-widest uppercase">{{ gateStatus }}</div>
-    </div>
+<ion-content style="--background: #F0F4FF;">
 
-    <!-- Controls -->
-    <div class="grid grid-cols-2 gap-4 mb-8 mt-6">
-      <ion-button color="success" expand="block" shape="round" class="h-16 text-lg font-bold shadow" (click)="openGate()" [disabled]="gateStatus === 'Open' || gateStatus === 'Moving'">
-        <ion-icon name="arrow-up-circle-outline" slot="start"></ion-icon>
-        OPEN
-      </ion-button>
-      <ion-button color="danger" expand="block" shape="round" class="h-16 text-lg font-bold shadow" (click)="closeGate()" [disabled]="gateStatus === 'Closed' || gateStatus === 'Moving'">
-        <ion-icon name="arrow-down-circle-outline" slot="start"></ion-icon>
-        CLOSE
-      </ion-button>
+  <!-- Status Banner -->
+  <div
+    [ngClass]="{
+      'status-closed': gateStatus === 'Closed',
+      'status-open':   gateStatus === 'Open',
+      'status-moving': gateStatus === 'Moving'
+    }"
+    style="padding: 28px 24px 36px; text-align:center; transition: background 0.4s;">
+
+    <p style="font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; opacity:0.75; margin:0 0 6px;">GATE STATUS</p>
+
+    <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+      <div class="status-dot"
+           [ngClass]="{
+             'dot-red':    gateStatus === 'Closed',
+             'dot-green':  gateStatus === 'Open',
+             'dot-yellow': gateStatus === 'Moving'
+           }">
+      </div>
+      <span style="font-size:36px; font-weight:900; letter-spacing:3px;">{{ gateStatus | uppercase }}</span>
+    </div>
+  </div>
+
+  <div style="background:#F0F4FF; border-radius:24px 24px 0 0; margin-top:-20px; padding:24px 20px 32px;">
+
+    <!-- Open / Close Buttons -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+      <button class="action-btn btn-green"
+              (click)="openGate()"
+              [disabled]="gateStatus === 'Open' || gateStatus === 'Moving'">
+        <ion-icon name="arrow-up-circle" style="font-size:28px; margin-bottom:4px;"></ion-icon>
+        <span>OPEN</span>
+      </button>
+      <button class="action-btn btn-red"
+              (click)="closeGate()"
+              [disabled]="gateStatus === 'Closed' || gateStatus === 'Moving'">
+        <ion-icon name="arrow-down-circle" style="font-size:28px; margin-bottom:4px;"></ion-icon>
+        <span>CLOSE</span>
+      </button>
     </div>
 
     <!-- Emergency -->
-    <div class="mt-8 mb-8">
-      <ion-button color="warning" expand="block" shape="round" class="h-16 font-extrabold text-xl shadow border-2 border-yellow-400" (click)="emergencyOpen()">
-        <ion-icon name="warning" slot="start"></ion-icon>
-        EMERGENCY OPEN
-      </ion-button>
+    <button class="action-btn btn-emergency" (click)="emergencyOpen()">
+      <ion-icon name="warning" style="font-size:24px; margin-bottom:2px;"></ion-icon>
+      <span>EMERGENCY OPEN</span>
+    </button>
+
+    <!-- Divider -->
+    <div style="border-top:1px solid #DDE3F0; margin:24px 0;"></div>
+
+    <!-- Vehicle Type -->
+    <p style="font-size:11px; font-weight:700; color:#6B7280; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:12px;">VEHICLE TYPE</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+      <button class="vtype-btn" [class.vtype-active]="vehicleType === 'car'" (click)="vehicleType='car'">
+        <ion-icon name="car-sport" style="font-size:22px;"></ion-icon>
+        <span>Car</span>
+      </button>
+      <button class="vtype-btn" [class.vtype-active]="vehicleType === 'motorcycle'" (click)="vehicleType='motorcycle'">
+        <ion-icon name="bicycle" style="font-size:22px;"></ion-icon>
+        <span>Moto</span>
+      </button>
+      <button class="vtype-btn" [class.vtype-active]="vehicleType === 'ev'" (click)="vehicleType='ev'">
+        <ion-icon name="flash" style="font-size:22px;"></ion-icon>
+        <span>EV</span>
+      </button>
     </div>
 
-    <!-- Override -->
-    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 mt-4">
-      <h3 class="text-sm font-bold mb-4 text-gray-500 uppercase tracking-wide">Vehicle Type Override</h3>
-      <ion-segment [(ngModel)]="vehicleType" color="primary" mode="ios" class="bg-slate-100">
-        <ion-segment-button value="car" class="py-2">
-          <ion-icon name="car-sport-outline"></ion-icon>
-          <ion-label>Car</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="motorcycle" class="py-2">
-          <ion-icon name="bicycle-outline"></ion-icon>
-          <ion-label>Moto</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="ev" class="py-2">
-          <ion-icon name="flash-outline"></ion-icon>
-          <ion-label>EV</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </div>
   </div>
+
 </ion-content>
