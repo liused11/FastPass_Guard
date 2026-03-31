@@ -1,17 +1,91 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title class="font-bold tracking-wide text-white">Lookup & Check-in</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding bg-slate-50">
+  <div class="h-full">
+    <!-- Scanner -->
+    <div class="mb-6">
+      <ion-button expand="block" color="secondary" shape="round" class="h-16 font-bold shadow-sm text-lg" (click)="scanQR()">
+        <ion-icon name="qr-code-outline" slot="start"></ion-icon>
+        SCAN USER QR
+      </ion-button>
+      <div class="bg-blue-50 border-2 border-dashed border-blue-300 h-48 flex flex-col items-center justify-center mt-6 rounded-2xl text-blue-500 shadow-inner">
+        <ion-icon name="camera-outline" class="text-5xl mb-2"></ion-icon>
+        <span class="text-lg font-medium">Scanner Camera View</span>
+      </div>
+    </div>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+    <!-- Separator -->
+    <div class="flex items-center my-6">
+      <div class="flex-grow border-t border-gray-200"></div>
+      <span class="px-4 text-gray-400 font-semibold text-sm">OR MANUAL ENTRY</span>
+      <div class="flex-grow border-t border-gray-200"></div>
+    </div>
+
+    <!-- Manual Entry -->
+    <div class="flex gap-3 mb-6">
+      <div class="flex-1 bg-white rounded-xl border border-gray-300 flex items-center shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
+        <ion-input [(ngModel)]="licensePlateStr" placeholder="License Plate" class="px-4 text-lg font-bold text-gray-800 uppercase text-center w-full min-h-[56px]" [clearInput]="true"></ion-input>
+      </div>
+      <ion-button class="h-14 w-24 m-0 font-bold shadow-md rounded-xl" color="primary" (click)="searchPlate()">SEARCH</ion-button>
+    </div>
+
+    <!-- Result Card -->
+    <div *ngIf="searchResult" class="bg-white p-5 rounded-2xl shadow-md mt-4 border-l-4"
+         [ngClass]="{'border-green-500': searchResult.bookingStatus === 'Confirmed', 'border-yellow-500': searchResult.bookingStatus !== 'Confirmed'}">
+      <div class="flex justify-between items-start mb-2">
+        <h3 class="text-3xl font-extrabold text-gray-900">{{ searchResult.plate }}</h3>
+        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-sm font-bold uppercase tracking-wide">{{ searchResult.bookingStatus }}</span>
+      </div>
+      <p class="text-gray-500 text-lg mb-4 font-medium">{{ searchResult.model }}</p>
+      
+      <div class="flex items-center gap-4 mb-6 p-4 bg-slate-50 rounded-xl border border-gray-100">
+        <ion-icon name="person-circle-outline" class="text-5xl text-blue-500"></ion-icon>
+        <div>
+          <div class="font-bold text-lg text-gray-800">{{ searchResult.userName }}</div>
+          <div class="text-sm font-semibold text-blue-600">{{ searchResult.role }}</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <ion-button color="success" expand="block" shape="round" class="h-14 font-bold shadow" (click)="confirmCheckIn()">
+          CHECK-IN
+        </ion-button>
+        <ion-button color="medium" expand="block" shape="round" class="h-14 font-bold shadow" (click)="confirmCheckOut()">
+          CHECK-OUT
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>
+
+<!-- Live Feed Bottom Sheet style -->
+<ion-footer class="bg-white border-t border-gray-200">
+  <div class="p-3">
+    <div class="flex justify-between p-2">
+      <h4 class="text-sm text-gray-500 font-bold tracking-wide uppercase">Recent Activity</h4>
+      <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">{{logs.length}} entries</span>
+    </div>
+    <div class="max-h-36 overflow-y-auto">
+      <div *ngFor="let log of logs" class="flex justify-between items-center py-3 px-3 border-b border-gray-100 last:border-0 hover:bg-slate-50 transition-colors">
+        <div class="flex flex-col">
+          <span class="font-bold text-gray-800 text-base">{{ log.plate }}</span>
+          <span class="text-xs text-gray-500 font-medium">{{ log.time | date:'shortTime' }}</span>
+        </div>
+        <span class="text-xs font-bold px-3 py-1.5 rounded-lg"
+              [ngClass]="{
+                'bg-green-100 text-green-700': log.status === 'Check-in',
+                'bg-gray-200 text-gray-700': log.status === 'Check-out'
+              }">
+          {{ log.status }}
+        </span>
+      </div>
+      <div *ngIf="logs.length === 0" class="text-center text-gray-400 font-medium py-4">
+        No recent activity
+      </div>
+    </div>
+  </div>
+</ion-footer>
