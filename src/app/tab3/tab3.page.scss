@@ -23,15 +23,48 @@
 
 /* ---- Role Badge ---- */
 .role-badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.2);
-  color: white;
+  display: inline-flex;
+  align-items: center;
   font-size: 12px;
   font-weight: 700;
   padding: 5px 14px;
   border-radius: 99px;
-  border: 1px solid rgba(255,255,255,0.35);
   letter-spacing: 0.5px;
+}
+
+/* ---- Change Station Button ---- */
+.change-station-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #EEF2FF;
+  color: #2563EB;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  &:active { background: #DBEAFE; }
+}
+
+/* ---- Super Guard Action Buttons ---- */
+.super-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1E293B;
+  cursor: pointer;
+  text-align: left;
+  &:last-child { border-bottom: none; }
+  &:active { background: #FFFBEB; }
 }
 
 /* ---- Stat Cards ---- */

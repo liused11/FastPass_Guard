@@ -1,0 +1,218 @@
+.ss-content {
+  --background: #0F172A;
+}
+
+/* ── Hero ── */
+.ss-hero {
+  padding: 64px 24px 32px;
+  text-align: center;
+  background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
+}
+.ss-hero-icon {
+  width: 84px;
+  height: 84px;
+  border-radius: 28px;
+  background: rgba(37, 99, 235, 0.12);
+  border: 2px solid rgba(37, 99, 235, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+.ss-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: white;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px;
+}
+.ss-subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ── Body ── */
+.ss-body {
+  background: #F1F5F9;
+  border-radius: 28px 28px 0 0;
+  padding: 24px 20px 48px;
+  min-height: 100%;
+}
+
+/* ── Officer Card ── */
+.officer-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.officer-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #EEF2FF;
+  border: 2px solid #A5B4FC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.officer-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1E293B;
+}
+.officer-building {
+  font-size: 12px;
+  color: #64748B;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ── Section Heading ── */
+.section-heading {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+
+/* ── Role Toggle ── */
+.role-toggle-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.role-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 12px;
+  border-radius: 14px;
+  border: 2px solid #E2E8F0;
+  background: white;
+  color: #64748B;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  &:active { transform: scale(0.96); }
+}
+.role-btn-active {
+  border-color: #2563EB;
+  background: #EEF2FF;
+  color: #1D4ED8;
+}
+.role-super-active {
+  border-color: #D97706;
+  background: #FFFBEB;
+  color: #B45309;
+}
+
+/* ── Super Notice ── */
+.super-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FEF3C7;
+  border: 1px solid #FCD34D;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #92400E;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* ── Station Card ── */
+.station-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  border-radius: 18px;
+  padding: 18px 16px;
+  margin-bottom: 12px;
+  border: 2px solid #E2E8F0;
+  cursor: pointer;
+  transition: all 0.18s;
+  &:active { transform: scale(0.98); }
+}
+.station-selected {
+  border-color: var(--sel-border);
+  background: var(--sel-bg);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.station-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.18s;
+}
+.station-info {
+  flex: 1;
+}
+.station-label {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 4px;
+}
+.station-sub {
+  font-size: 11px;
+  color: #64748B;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.station-check {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.18s;
+}
+.check-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Confirm Button ── */
+.confirm-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  margin-top: 24px;
+  box-shadow: 0 6px 24px rgba(37, 99, 235, 0.35);
+  transition: all 0.15s;
+  &:active { transform: scale(0.97); }
+  &:disabled {
+    background: #CBD5E1;
+    box-shadow: none;
+    color: #94A3B8;
+    cursor: default;
+  }
+}

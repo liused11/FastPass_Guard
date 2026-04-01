@@ -3,8 +3,17 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'station-select',
+    loadChildren: () => import('./station-select/station-select.module').then(m => m.StationSelectPageModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: '**',
+    redirectTo: '/station-select',
+    pathMatch: 'full'
   }
 ];
 @NgModule({

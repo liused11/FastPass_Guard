@@ -1,0 +1,133 @@
+<ion-content style="--background: #F1F5F9;">
+
+  <!-- ══ HEADER ══ -->
+  <div class="da-header">
+    <div class="da-header-left">
+      <p class="da-header-label">DOOR ACCESS</p>
+      <p class="da-header-title">ล็อบบี้อาคาร</p>
+    </div>
+    <div class="da-header-right">
+      <ion-icon name="business-outline" style="font-size:28px; color:rgba(255,255,255,0.6);"></ion-icon>
+    </div>
+  </div>
+
+  <div class="da-body">
+
+    <!-- ══ IDENTITY CARD (แสดงหลังสแกน) ══ -->
+    <div class="verified-card" *ngIf="verified">
+      <div class="verified-card-top">
+        <button class="vc-close-btn" (click)="clearVerified()">
+          <ion-icon name="close-outline" style="font-size:20px;"></ion-icon>
+        </button>
+        <div class="vc-avatar" [style.background]="typeBg(verified.type)" [style.border-color]="typeColor(verified.type)">
+          {{ verified.avatar }}
+        </div>
+        <div class="vc-name">{{ verified.name }}</div>
+        <span class="vc-type-badge" [style.background]="typeBg(verified.type)" [style.color]="typeColor(verified.type)">
+          {{ typeLabel(verified.type) }}
+        </span>
+        <div class="vc-allowed">
+          <ion-icon name="location-outline" style="font-size:14px; color:#64748B;"></ion-icon>
+          <span>{{ verified.allowed }}</span>
+        </div>
+        <!-- ID hold badge for visitors -->
+        <div class="vc-id-held" *ngIf="verified.isVisitor && verified.idHeld">
+          <ion-icon name="card" style="font-size:14px; color:#DC2626;"></ion-icon>
+          <span>ยึดบัตรประชาชนแล้ว</span>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="vc-actions">
+        <button class="vc-btn vc-btn-checkin" (click)="doCheckin()">
+          <ion-icon name="log-in-outline"></ion-icon>
+          <span>Check-in</span>
+        </button>
+        <button class="vc-btn vc-btn-checkout" (click)="doCheckout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <span>Check-out</span>
+        </button>
+      </div>
+
+      <!-- Visitor controls -->
+      <button class="vc-id-btn" *ngIf="verified.isVisitor" (click)="toggleIdHold()"
+        [class.vc-id-btn-held]="verified.idHeld">
+        <ion-icon [name]="verified.idHeld ? 'card' : 'card-outline'"></ion-icon>
+        <span>{{ verified.idHeld ? 'คืนบัตรประชาชน' : 'ยึดบัตรประชาชน' }}</span>
+      </button>
+    </div>
+
+    <!-- ══ SCAN ZONE (แสดงตอนยังไม่ verified) ══ -->
+    <div *ngIf="!verified">
+      <!-- QR Scan Button -->
+      <div class="scan-card" (click)="startScan()">
+        <div class="scan-inner" [class.scan-active]="scanning">
+          <div class="scan-corners">
+            <div class="corner tl"></div>
+            <div class="corner tr"></div>
+            <div class="corner bl"></div>
+            <div class="corner br"></div>
+          </div>
+          <div *ngIf="!scanning" class="scan-idle-content">
+            <ion-icon name="qr-code-outline" style="font-size:52px; color:#2563EB;"></ion-icon>
+            <p class="scan-label">แตะเพื่อสแกน QR Code</p>
+            <p class="scan-sub">สแกน Access Pass จากแอปของผู้เข้าใช้</p>
+          </div>
+          <div *ngIf="scanning" class="scan-loading">
+            <div class="scan-line"></div>
+            <p class="scan-label">กำลังสแกน...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manual Code Entry -->
+      <div class="manual-card">
+        <p class="section-label">MANUAL CODE ENTRY</p>
+        <p class="manual-desc">กรณีมือถือแบตหมดหรือเปิด QR ไม่ได้</p>
+        <div class="manual-input-row">
+          <input
+            class="manual-input"
+            type="text"
+            placeholder="กรอกรหัส 6-8 หลัก"
+            [(ngModel)]="manualCode"
+            maxlength="8"
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+            (keyup.enter)="submitCode()"
+          />
+          <button class="manual-submit-btn" (click)="submitCode()" [disabled]="!manualCode.trim()">
+            <ion-icon name="search-outline" style="font-size:20px;"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ LIVE WALK-IN LOG ══ -->
+    <div class="log-section">
+      <p class="section-label">LIVE WALK-IN LOG</p>
+      <div class="log-card" *ngFor="let entry of walkLog">
+        <div class="log-avatar" [style.background]="typeBg(entry.type)" [style.border-color]="typeColor(entry.type)">
+          {{ entry.avatar }}
+        </div>
+        <div class="log-info">
+          <div class="log-name">{{ entry.name }}</div>
+          <div class="log-meta">
+            <span class="log-type-badge" [style.background]="typeBg(entry.type)" [style.color]="typeColor(entry.type)">
+              {{ typeLabel(entry.type) }}
+            </span>
+            <span class="log-allowed">{{ entry.allowed }}</span>
+          </div>
+        </div>
+        <div class="log-right">
+          <span class="log-action" [style.color]="actionColor(entry.action)"
+            [style.background]="entry.action === 'check_in' ? '#DCFCE7' : '#FEE2E2'">
+            {{ actionLabel(entry.action) }}
+          </span>
+          <div class="log-time">{{ entry.time | date:'HH:mm' }}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

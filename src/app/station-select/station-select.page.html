@@ -1,0 +1,83 @@
+<ion-content class="ss-content">
+
+  <!-- Hero -->
+  <div class="ss-hero">
+    <div class="ss-hero-icon">
+      <ion-icon name="shield-checkmark" style="font-size:42px; color:#2563EB;"></ion-icon>
+    </div>
+    <h1 class="ss-title">FastPass Guard</h1>
+    <p class="ss-subtitle">เลือกจุดปฏิบัติงานและระดับสิทธิ์ก่อนเริ่มกะ</p>
+  </div>
+
+  <div class="ss-body">
+
+    <!-- Officer Card -->
+    <div class="officer-card">
+      <div class="officer-avatar">
+        <ion-icon name="person" style="font-size:28px; color:#2563EB;"></ion-icon>
+      </div>
+      <div>
+        <div class="officer-name">{{ officerName }}</div>
+        <div class="officer-building">{{ building }}</div>
+      </div>
+    </div>
+
+    <!-- Role Toggle -->
+    <p class="section-heading">ระดับสิทธิ์ (Role)</p>
+    <div class="role-toggle-row">
+      <button
+        *ngFor="let r of roles"
+        class="role-btn"
+        [class.role-btn-active]="selectedRole === r.id"
+        [class.role-super-active]="selectedRole === r.id && r.id === 'super_guard'"
+        (click)="selectedRole = r.id">
+        <ion-icon [name]="r.icon" style="font-size:18px;"></ion-icon>
+        <span>{{ r.label }}</span>
+      </button>
+    </div>
+
+    <!-- Super Guard notice -->
+    <div class="super-notice" *ngIf="selectedRole === 'super_guard'">
+      <ion-icon name="star" style="font-size:14px; color:#D97706;"></ion-icon>
+      <span>สิทธิ์ Global View, Override และ Audit Log จะถูกเปิดใช้งาน</span>
+    </div>
+
+    <!-- Station Selection -->
+    <p class="section-heading" style="margin-top:24px;">จุดปฏิบัติงาน (Station)</p>
+
+    <div
+      *ngFor="let s of stations"
+      class="station-card"
+      [class.station-selected]="selectedStation === s.id"
+      [style.--sel-color]="s.color"
+      [style.--sel-border]="s.border"
+      [style.--sel-bg]="s.bg"
+      (click)="selectStation(s.id)">
+
+      <div class="station-icon-wrap" [style.background]="selectedStation === s.id ? s.bg : '#F1F5F9'"
+           [style.border-color]="selectedStation === s.id ? s.border : 'transparent'">
+        <ion-icon [name]="s.ionIcon" style="font-size:28px;" [style.color]="s.color"></ion-icon>
+      </div>
+
+      <div class="station-info">
+        <div class="station-label">{{ s.label }}</div>
+        <div class="station-sub">{{ s.sublabel }}</div>
+      </div>
+
+      <div class="station-check" [class.check-visible]="selectedStation === s.id">
+        <ion-icon name="checkmark-circle" [style.color]="s.color" style="font-size:24px;"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Confirm Button -->
+    <button
+      class="confirm-btn"
+      [disabled]="!selectedStation"
+      (click)="confirm()">
+      <ion-icon name="arrow-forward-circle" style="font-size:22px;"></ion-icon>
+      <span>เริ่มปฏิบัติงาน</span>
+    </button>
+
+  </div>
+
+</ion-content>

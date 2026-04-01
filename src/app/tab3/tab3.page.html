@@ -1,5 +1,3 @@
-
-
 <ion-content style="--background: #F0F4FF;">
 
   <!-- Profile Hero -->
@@ -9,9 +7,21 @@
         <ion-icon name="shield-checkmark" style="font-size:48px; color:#2563EB;"></ion-icon>
       </div>
     </div>
-    <h2 style="color:white; font-size:22px; font-weight:800; margin:16px 0 4px; letter-spacing:0.3px;">Officer John</h2>
-    <span class="role-badge">Security Supervisor</span>
-    <p style="color: rgba(255,255,255,0.65); font-size:12px; margin:10px 0 0; font-weight:500;">Gate A · Main Entrance · Shift 08:00–20:00</p>
+    <h2 style="color:white; font-size:22px; font-weight:800; margin:16px 0 4px; letter-spacing:0.3px;">
+      {{ auth.session?.name || 'Officer' }}
+    </h2>
+
+    <!-- Role Badge -->
+    <span class="role-badge" [style.background]="roleBg" [style.color]="roleColor">
+      <ion-icon [name]="auth.isSuperGuard ? 'shield-checkmark' : 'shield-outline'" style="font-size:13px; vertical-align:middle; margin-right:4px;"></ion-icon>
+      {{ roleLabel }}
+    </span>
+
+    <!-- Station Info -->
+    <p style="color: rgba(255,255,255,0.65); font-size:12px; margin:10px 0 0; font-weight:500;">
+      <ion-icon [name]="stationIcon" style="font-size:13px; vertical-align:middle;"></ion-icon>
+      {{ auth.session?.building }} · {{ stationLabel }} · Shift 08:00–20:00
+    </p>
   </div>
 
   <div style="background:#F0F4FF; border-radius:24px 24px 0 0; margin-top:-24px; padding:24px 20px 40px;">
@@ -32,6 +42,24 @@
       </div>
     </div>
 
+    <!-- Current Station Card -->
+    <div class="info-card" style="margin-bottom:20px;">
+      <div class="info-header">
+        <ion-icon [name]="stationIcon" style="color:#2563EB; font-size:18px;"></ion-icon>
+        <span>จุดปฏิบัติงานปัจจุบัน</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
+        <div>
+          <div style="font-size:17px; font-weight:800; color:#1E293B;">{{ stationLabel }}</div>
+          <div style="font-size:12px; color:#94A3B8; margin-top:2px; font-weight:500;">{{ auth.session?.gate }} · {{ auth.session?.building }}</div>
+        </div>
+        <button class="change-station-btn" (click)="changeStation()">
+          <ion-icon name="swap-horizontal-outline" style="font-size:16px;"></ion-icon>
+          <span>เปลี่ยน</span>
+        </button>
+      </div>
+    </div>
+
     <!-- Shift Info -->
     <div class="info-card" style="margin-bottom:20px;">
       <div class="info-header">
@@ -45,7 +73,6 @@
         </div>
         <span style="background:#DCFCE7; color:#16A34A; font-size:11px; font-weight:700; padding:6px 14px; border-radius:99px; letter-spacing:0.5px;">● ACTIVE</span>
       </div>
-
       <!-- Shift Progress Bar -->
       <div style="margin-top:16px;">
         <div style="display:flex; justify-content:space-between; font-size:11px; color:#94A3B8; margin-bottom:6px;">
@@ -55,6 +82,31 @@
         <div style="background:#E2E8F0; border-radius:99px; height:8px; overflow:hidden;">
           <div style="background: linear-gradient(90deg, #2563EB, #60A5FA); width:75%; height:100%; border-radius:99px;"></div>
         </div>
+      </div>
+    </div>
+
+    <!-- Super Guard: Audit Log section -->
+    <div *ngIf="auth.isSuperGuard" class="info-card" style="margin-bottom:20px; border: 2px solid #FCD34D;">
+      <div class="info-header">
+        <ion-icon name="shield-checkmark" style="color:#D97706; font-size:18px;"></ion-icon>
+        <span style="color:#B45309; font-weight:800;">หัวหน้า รปภ. — สิทธิ์พิเศษ</span>
+      </div>
+      <div style="margin-top:14px; display:flex; flex-direction:column; gap:10px;">
+        <button class="super-action-btn">
+          <ion-icon name="analytics-outline" style="font-size:18px; color:#7C3AED;"></ion-icon>
+          <span>Global Dashboard</span>
+          <ion-icon name="chevron-forward-outline" style="margin-left:auto; color:#CBD5E1; font-size:16px;"></ion-icon>
+        </button>
+        <button class="super-action-btn">
+          <ion-icon name="document-text-outline" style="font-size:18px; color:#2563EB;"></ion-icon>
+          <span>Audit Log ย้อนหลัง</span>
+          <ion-icon name="chevron-forward-outline" style="margin-left:auto; color:#CBD5E1; font-size:16px;"></ion-icon>
+        </button>
+        <button class="super-action-btn">
+          <ion-icon name="ban-outline" style="font-size:18px; color:#DC2626;"></ion-icon>
+          <span>Blacklist Management</span>
+          <ion-icon name="chevron-forward-outline" style="margin-left:auto; color:#CBD5E1; font-size:16px;"></ion-icon>
+        </button>
       </div>
     </div>
 
@@ -88,13 +140,13 @@
     </div>
 
     <!-- Logout -->
-    <button class="logout-btn" style="margin-top:28px;">
+    <button class="logout-btn" style="margin-top:28px;" (click)="logout()">
       <ion-icon name="log-out-outline" style="font-size:20px;"></ion-icon>
-      <span>Log Out</span>
+      <span>Log Out / เปลี่ยนผู้ใช้</span>
     </button>
 
     <!-- Version -->
-    <p style="text-align:center; color:#CBD5E1; font-size:11px; font-weight:500; margin-top:20px;">FastPass Guard v1.0.0</p>
+    <p style="text-align:center; color:#CBD5E1; font-size:11px; font-weight:500; margin-top:20px;">FastPass Guard v1.1.0</p>
 
   </div>
 

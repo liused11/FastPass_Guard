@@ -91,6 +91,23 @@
       </button>
 
     </div>
+
+    <!-- ── SUPER GUARD ONLY: Override Section ── -->
+    <div class="super-zone" *ngIf="auth.isSuperGuard">
+      <p class="section-label" style="margin-bottom:12px;">
+        <ion-icon name="shield-checkmark" style="color:#D97706; font-size:12px; vertical-align:middle;"></ion-icon>
+        SUPER GUARD OVERRIDE
+      </p>
+      <button class="override-btn override-global-open">
+        <ion-icon name="flash-outline" style="font-size:20px;"></ion-icon>
+        <span>เปิดไม้กั้นทุกจุดพร้อมกัน (ฉุกเฉิน)</span>
+      </button>
+      <button class="override-btn override-maintenance">
+        <ion-icon name="construct-outline" style="font-size:20px;"></ion-icon>
+        <span>ปิดช่องจอด → Maintenance</span>
+      </button>
+    </div>
+
   </div>
 
 </ion-content>

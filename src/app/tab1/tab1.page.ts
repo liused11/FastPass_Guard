@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 
 interface LprEntry {
   plate: string;
@@ -43,7 +44,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   private _clockInterval: any;
   now = new Date();
 
-  constructor(private alertCtrl: AlertController) {}
+  constructor(private alertCtrl: AlertController, public auth: AuthService) {}
 
   ngOnInit() {
     this._clockInterval = setInterval(() => { this.now = new Date(); }, 30000);

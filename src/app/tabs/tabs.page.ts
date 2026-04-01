@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-tabs',
@@ -6,8 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss'],
   standalone: false,
 })
-export class TabsPage {
+export class TabsPage implements OnInit {
 
-  constructor() {}
+  constructor(public auth: AuthService, private router: Router) {}
 
+  ngOnInit() {
+    // If no session, send to station select
+    if (!this.auth.hasSession()) {
+      this.router.navigateByUrl('/station-select', { replaceUrl: true });
+    }
+  }
 }
