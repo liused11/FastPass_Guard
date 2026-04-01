@@ -62,16 +62,32 @@ export class Tab1Page implements OnInit, OnDestroy {
   async manualOpen() {
     const alert = await this.alertCtrl.create({
       header: 'ยืนยันการเปิดประตู',
-      message: `เปิด ${this.gate} (${this.building}) ด้วยตนเอง?`,
+      message: `เปิด ${this.gate} (${this.building}) ด้วยตนเอง?\nกรุณาระบุป้ายทะเบียน`,
+      inputs: [
+        {
+          name: 'licensePlate',
+          type: 'text',
+          placeholder: 'ระบุป้ายทะเบียน (บังคับ)',
+          attributes: {
+            autocomplete: 'off',
+            autocorrect: 'off',
+            spellcheck: 'false'
+          }
+        }
+      ],
       cssClass: 'confirm-alert',
       buttons: [
         {
           text: 'เปิดประตู',
           cssClass: 'alert-btn-open',
-          handler: () => {
-            if (this.gateStatus === 'Moving') return;
+          handler: (data) => {
+            if (!data.licensePlate || data.licensePlate.trim() === '') {
+              return false; // Prevent popup from closing if empty
+            }
+            if (this.gateStatus === 'Moving') return true;
             this.gateStatus = 'Moving';
             setTimeout(() => { this.gateStatus = 'Open'; }, 1800);
+            return true;
           }
         },
         { text: 'ยกเลิก', role: 'cancel', cssClass: 'alert-btn-cancel' }
@@ -83,17 +99,33 @@ export class Tab1Page implements OnInit, OnDestroy {
   async forceClose() {
     const alert = await this.alertCtrl.create({
       header: 'ยืนยันการปิดประตู',
-      message: `บังคับปิด ${this.gate} (${this.building})?`,
+      message: `บังคับปิด ${this.gate} (${this.building})?\nกรุณาระบุป้ายทะเบียน`,
+      inputs: [
+        {
+          name: 'licensePlate',
+          type: 'text',
+          placeholder: 'ระบุป้ายทะเบียน (บังคับ)',
+          attributes: {
+            autocomplete: 'off',
+            autocorrect: 'off',
+            spellcheck: 'false'
+          }
+        }
+      ],
       cssClass: 'confirm-alert',
       buttons: [
         {
           text: 'ปิดประตู',
           cssClass: 'alert-btn-close',
-          handler: () => {
+          handler: (data) => {
+            if (!data.licensePlate || data.licensePlate.trim() === '') {
+              return false; // Prevent popup from closing if empty
+            }
             this.holdOpen = false;
-            if (this.gateStatus === 'Moving') return;
+            if (this.gateStatus === 'Moving') return true;
             this.gateStatus = 'Moving';
             setTimeout(() => { this.gateStatus = 'Closed'; }, 1800);
+            return true;
           }
         },
         { text: 'ยกเลิก', role: 'cancel', cssClass: 'alert-btn-cancel' }

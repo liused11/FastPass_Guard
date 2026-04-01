@@ -87,7 +87,7 @@
       <button class="emergency-btn" [class.emergency-active]="emergencyTriggered" [disabled]="mode === 'auto'"
         (click)="triggerEmergencyAlert()">
         <ion-icon [name]="emergencyTriggered ? 'checkmark-circle-outline' : 'megaphone-outline'"></ion-icon>
-        <span>{{ emergencyTriggered ? 'ส่งสัญญาณแล้ว' : 'EMERGENCY' }}</span>
+        <span>{{ emergencyTriggered ? 'ส่งสัญญาณแล้ว' : 'EMERGENCY CALL' }}</span>
       </button>
 
     </div>
