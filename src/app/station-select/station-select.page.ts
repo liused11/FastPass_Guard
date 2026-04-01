@@ -10,19 +10,19 @@ import { AuthService, GuardRole, StationType } from '../services/auth.service';
 })
 export class StationSelectPage implements OnInit {
 
-  selectedRole: GuardRole     = 'guard';
+  selectedRole: GuardRole = 'guard';
   selectedStation: StationType | null = null;
 
   // Demo officer data — replace with real auth later
   officerName = 'Officer John';
-  building    = 'อาคาร FIBO';
+  building = 'อาคาร FIBO';
 
   stations = [
     {
       id: 'gate' as StationType,
       icon: 'barrier-outline',
       ionIcon: 'git-branch-outline',
-      label: 'ป้อมไม้กั้น / LPR',
+      label: 'LPR',
       sublabel: 'ควบคุมไม้กั้น, ตรวจสอบป้ายทะเบียน',
       color: '#10B981',
       bg: '#ECFDF5',
@@ -31,7 +31,7 @@ export class StationSelectPage implements OnInit {
     {
       id: 'door_access' as StationType,
       ionIcon: 'business-outline',
-      label: 'ล็อบบี้ / ประตูอาคาร',
+      label: 'Door Access',
       sublabel: 'สแกน QR, ยืนยันตัวตน, บันทึกเข้า-ออก',
       color: '#2563EB',
       bg: '#EEF2FF',
@@ -40,17 +40,17 @@ export class StationSelectPage implements OnInit {
   ];
 
   roles: { id: GuardRole; label: string; icon: string }[] = [
-    { id: 'guard',       label: 'รปภ. ทั่วไป',    icon: 'shield-outline' },
+    { id: 'guard', label: 'รปภ. ทั่วไป', icon: 'shield-outline' },
     { id: 'super_guard', label: 'หัวหน้า รปภ.', icon: 'shield-checkmark' },
   ];
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     // Pre-fill from existing session if any
     const s = this.auth.session;
     if (s) {
-      this.selectedRole    = s.role;
+      this.selectedRole = s.role;
       this.selectedStation = s.station;
     }
   }
@@ -62,12 +62,12 @@ export class StationSelectPage implements OnInit {
   confirm() {
     if (!this.selectedStation) return;
     this.auth.setSession({
-      role:     this.selectedRole,
-      station:  this.selectedStation,
-      name:     this.officerName,
+      role: this.selectedRole,
+      station: this.selectedStation,
+      name: this.officerName,
       building: this.building,
-      gate:     'Gate A',
-      floor:    'ชั้น B1',
+      gate: 'Gate A',
+      floor: 'ชั้น B1',
     });
     this.router.navigateByUrl('/tabs', { replaceUrl: true });
   }

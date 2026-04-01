@@ -1,5 +1,7 @@
 <ion-content style="--background: #F1F5F9;">
 
+
+
   <!-- ══ GATE STATUS — TOP ══ -->
   <div class="gate-card" [class.gate-open]="gateStatus === 'Open'" [class.gate-closed]="gateStatus === 'Closed'"
     [class.gate-moving]="gateStatus === 'Moving'">
@@ -30,6 +32,12 @@
 
   <!-- ══ BODY ══ -->
   <div class="body-zone">
+
+    <!-- Shrimp Image Logo -->
+    <div style="text-align: center; padding: 20px 0 0;">
+      <img src="assets/กุ้ง.jpg" style="width: 400px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+        alt="Shrimp Logo" />
+    </div>
 
     <!-- ── MODE INDICATOR ── -->
     <div class="mode-indicator">
