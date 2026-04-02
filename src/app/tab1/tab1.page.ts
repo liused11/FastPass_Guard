@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ActionSheetController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 
 interface LprEntry {
@@ -44,7 +44,7 @@ export class Tab1Page implements OnInit, OnDestroy {
   private _clockInterval: any;
   now = new Date();
 
-  constructor(private alertCtrl: AlertController, public auth: AuthService) {}
+  constructor(private alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, public auth: AuthService) {}
 
   ngOnInit() {
     this._clockInterval = setInterval(() => { this.now = new Date(); }, 30000);
@@ -52,6 +52,34 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this._clockInterval);
+  }
+
+  async selectBuilding() {
+    const buildings = [
+      { name: 'อาคาร FIBO', floor: 'ชั้น B1' },
+      { name: 'หอสมุด', floor: 'ชั้น 1' },
+      { name: 'อาคาร 9', floor: 'ชั้น B1' },
+      { name: 'อาคาร 10', floor: 'ชั้น B1' },
+      { name: 'อาคาร ICTRC', floor: 'ชั้น 1' },
+    ];
+    const sheet = await this.actionSheetCtrl.create({
+      header: 'เลือกอาคาร',
+      cssClass: 'building-sheet',
+      buttons: [
+        ...buildings.map(b => ({
+          text: b.name,
+          handler: () => {
+            this.building = b.name;
+            this.floor = b.floor;
+          }
+        })),
+        {
+          text: 'ยกเลิก',
+          role: 'cancel'
+        }
+      ]
+    });
+    await sheet.present();
   }
 
   toggleMode() {

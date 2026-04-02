@@ -1,0 +1,82 @@
+<ion-content style="--background: #0F172A;">
+
+  <!-- ══ HEADER ══ -->
+  <div class="gqr-header">
+    <div class="gqr-header-top">
+      <p class="gqr-label">MY ACCESS PASS</p>
+      <div class="gqr-pulse-badge">
+        <span class="gqr-pulse-dot"></span>
+        <span>ACTIVE</span>
+      </div>
+    </div>
+    <div class="gqr-avatar-row">
+      <div class="gqr-avatar">{{ guardInitials }}</div>
+      <div class="gqr-info">
+        <p class="gqr-name">{{ guardName }}</p>
+        <p class="gqr-role">รปภ · {{ guardBuilding }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ QR CARD ══ -->
+  <div class="gqr-card-wrap">
+    <div class="gqr-card">
+
+      <!-- Decorative corner brackets -->
+      <div class="gqr-corners">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+      </div>
+
+      <!-- QR Canvas -->
+      <div class="gqr-canvas-wrap">
+        <canvas #qrCanvas class="gqr-canvas"></canvas>
+      </div>
+
+      <!-- Code label -->
+      <div class="gqr-code-row">
+        <span class="gqr-code-text">{{ guardCode }}</span>
+        <ion-icon name="copy-outline" class="gqr-copy-icon" (click)="copyCode()"></ion-icon>
+      </div>
+
+      <!-- Refresh -->
+      <button class="gqr-refresh-btn" (click)="refreshQR()" [class.gqr-spinning]="spinning">
+        <ion-icon name="refresh-outline"></ion-icon>
+        <span>สร้าง QR ใหม่</span>
+      </button>
+
+    </div>
+
+    <!-- Expiry info -->
+    <div class="gqr-expiry-row">
+      <ion-icon name="time-outline" style="font-size:14px;"></ion-icon>
+      <span>QR หมดอายุใน <b>{{ expiryCountdown }}</b></span>
+    </div>
+
+    <!-- Instructions -->
+    <div class="gqr-hint-card">
+      <div class="gqr-hint-item">
+        <div class="gqr-hint-icon">
+          <ion-icon name="qr-code-outline"></ion-icon>
+        </div>
+        <div>
+          <p class="gqr-hint-title">วิธีใช้</p>
+          <p class="gqr-hint-desc">แสดง QR Code นี้ให้ รปภ ที่ประตูสแกนเพื่อเปิดประตู</p>
+        </div>
+      </div>
+      <div class="gqr-hint-item">
+        <div class="gqr-hint-icon gqr-hint-warn">
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
+        </div>
+        <div>
+          <p class="gqr-hint-title">ความปลอดภัย</p>
+          <p class="gqr-hint-desc">รหัส QR จะหมดอายุทุก 5 นาที — อย่าแชร์ให้ผู้อื่น</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

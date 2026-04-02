@@ -1,0 +1,189 @@
+/* ══ HEADER ══ */
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 52px 22px 28px;
+  background: linear-gradient(160deg, #0F172A, #1E293B);
+}
+.dash-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: rgba(255,255,255,0.5);
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+.dash-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: white;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+.dash-refresh {
+  font-size: 24px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  padding: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex;
+}
+.spinning { animation: spin 0.7s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ══ BODY ══ */
+.dash-body {
+  background: #F1F5F9;
+  border-radius: 24px 24px 0 0;
+  padding: 20px 18px 48px;
+  min-height: calc(100vh - 140px);
+}
+
+/* ── Stats ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: white;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 1.5px;
+  margin: 0 0 8px;
+}
+.stat-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1E293B;
+  margin: 0 0 8px;
+}
+.stat-sub {
+  font-size: 11px;
+  color: #94A3B8;
+  font-weight: 500;
+  margin: 0;
+}
+.stat-bar {
+  height: 6px;
+  background: #F1F5F9;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.stat-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #2563EB, #60A5FA);
+  border-radius: 3px;
+  transition: width 0.4s;
+}
+
+/* ── Section label ── */
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin: 24px 0 12px;
+}
+
+/* ── Building list ── */
+.building-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.building-card {
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.15s;
+  &:active { transform: scale(0.98); box-shadow: 0 1px 4px rgba(0,0,0,0.03); }
+}
+.bc-info { flex: 1; }
+.bc-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 4px;
+}
+.bc-sub {
+  font-size: 11px;
+  color: #94A3B8;
+  font-weight: 600;
+}
+.bc-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.bc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  ion-icon { font-size: 16px; }
+}
+.bc-badge-ok { background: #DCFCE7; color: #16A34A; }
+.bc-badge-warn { background: #FEF3C7; color: #D97706; }
+
+/* ── Details Log ── */
+.details-section {
+  margin-top: 14px;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.log-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.log-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 2px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.log-info { flex: 1; }
+.log-name { font-size: 14px; font-weight: 700; color: #1E293B; }
+.log-meta { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+.log-type-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: #F1F5F9;
+  color: #64748B;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.log-time { font-size: 11px; color: #94A3B8; font-weight: 500; }

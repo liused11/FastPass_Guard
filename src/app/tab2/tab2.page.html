@@ -46,7 +46,10 @@
           <span class="rc-plate">{{ searchResult.plate }}</span>
           <span class="rc-model">{{ searchResult.model }}</span>
         </div>
-        <span class="badge-confirmed">✓ {{ searchResult.bookingStatus }}</span>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+          <span class="badge-confirmed">✓ {{ searchResult.bookingStatus }}</span>
+          <span *ngIf="isBlacklisted()" style="background:#FEE2E2; color:#991B1B; font-size:10px; font-weight:700; padding:4px 10px; border-radius:99px;">⛔ BLACKLISTED</span>
+        </div>
       </div>
 
       <!-- Location block -->
@@ -56,8 +59,33 @@
           <span class="rc-building">{{ searchResult.building }}</span>
           <div class="rc-sub-row">
             <span class="rc-chip">{{ searchResult.floor }}</span>
-            <span class="rc-chip rc-chip-slot">Slot {{ searchResult.slot }}</span>
-            <span class="rc-chip">{{ searchResult.gate }}</span>
+            <span class="rc-chip rc-chip-slot">Zone {{ searchResult.zone }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Times -->
+      <div class="rc-time-block" *ngIf="searchResult.bookingTimes && searchResult.bookingTimes.length > 0" style="margin-top: 12px; background: #FFF8F1; border: 1px solid #FFEDD5; border-radius: 14px; padding: 14px; display: flex; gap: 12px; align-items: flex-start;">
+        <ion-icon name="time-outline" style="font-size:20px; color:#EA580C; flex-shrink:0;"></ion-icon>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <span style="font-size: 12px; font-weight: 700; color: #9A3412;">เวลาการจองสำหรับวันนี้</span>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <span *ngFor="let time of searchResult.bookingTimes" style="background: white; border: 1px solid #FED7AA; color: #EA580C; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 8px;">
+              {{ time }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Door Access -->
+      <div class="rc-door-block" *ngIf="searchResult.doorAccesses && searchResult.doorAccesses.length > 0" style="margin-top: 12px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 14px; padding: 14px; display: flex; gap: 12px; align-items: flex-start;">
+        <ion-icon name="key-outline" style="font-size:20px; color:#16A34A; flex-shrink:0;"></ion-icon>
+        <div style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
+          <span style="font-size: 12px; font-weight: 700; color: #14532D;">Door Access (สิทธิ์การเข้าประตูล็อค)</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <span *ngFor="let access of searchResult.doorAccesses" style="background: white; border: 1px solid #86EFAC; color: #16A34A; font-size: 11px; font-weight: 600; padding: 8px 12px; border-radius: 8px;">
+              {{ access }}
+            </span>
           </div>
         </div>
       </div>
@@ -77,7 +105,7 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="rc-actions">
+      <div class="rc-actions" [style.grid-template-columns]="auth.isSuperGuard ? '1fr 1fr 1fr' : '1fr 1fr'">
         <button class="act-btn btn-checkin" (click)="confirmCheckIn()">
           <ion-icon name="enter-outline" style="font-size:22px;"></ion-icon>
           <span>CHECK-IN</span>
@@ -85,6 +113,14 @@
         <button class="act-btn btn-checkout" (click)="confirmCheckOut()">
           <ion-icon name="exit-outline" style="font-size:22px;"></ion-icon>
           <span>CHECK-OUT</span>
+        </button>
+        <!-- Super Guard only: Blacklist -->
+        <button *ngIf="auth.isSuperGuard" class="act-btn" (click)="blacklistPlate()"
+          [style.background]="isBlacklisted() ? '#FEF2F2' : '#0F172A'"
+          [style.color]="isBlacklisted() ? '#991B1B' : 'white'"
+          [style.border]="isBlacklisted() ? '2px solid #FCA5A5' : 'none'">
+          <ion-icon [name]="isBlacklisted() ? 'checkmark-circle-outline' : 'ban-outline'" style="font-size:20px;"></ion-icon>
+          <span>{{ isBlacklisted() ? 'UNBAN' : 'BLACKLIST' }}</span>
         </button>
       </div>
     </div>

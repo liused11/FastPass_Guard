@@ -8,11 +8,11 @@
 
     <!-- Location block -->
     <div class="gate-location-block">
-      <span class="gate-building-name">{{ building }}</span>
-      <span class="gate-floor-tag">
-
-        {{ floor }}
-      </span>
+      <button class="gate-building-btn" (click)="selectBuilding()" [disabled]="!auth.isSuperGuard">
+        <span class="gate-building-name">{{ building }}</span>
+        <ion-icon *ngIf="auth.isSuperGuard" name="chevron-down-outline" style="font-size:14px; color:rgba(255,255,255,0.6); margin-left:4px;"></ion-icon>
+      </button>
+      <span class="gate-floor-tag">{{ floor }}</span>
     </div>
 
     <div class="gate-card-inner">
@@ -96,21 +96,7 @@
 
     </div>
 
-    <!-- ── SUPER GUARD ONLY: Override Section ── -->
-    <div class="super-zone" *ngIf="auth.isSuperGuard">
-      <p class="section-label" style="margin-bottom:12px;">
-        <ion-icon name="shield-checkmark" style="color:#D97706; font-size:12px; vertical-align:middle;"></ion-icon>
-        SUPER GUARD OVERRIDE
-      </p>
-      <button class="override-btn override-global-open">
-        <ion-icon name="flash-outline" style="font-size:20px;"></ion-icon>
-        <span>เปิดไม้กั้นทุกจุดพร้อมกัน (ฉุกเฉิน)</span>
-      </button>
-      <button class="override-btn override-maintenance">
-        <ion-icon name="construct-outline" style="font-size:20px;"></ion-icon>
-        <span>ปิดช่องจอด → Maintenance</span>
-      </button>
-    </div>
+
 
   </div>
 

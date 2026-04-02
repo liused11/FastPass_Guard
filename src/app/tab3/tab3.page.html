@@ -53,7 +53,7 @@
           <div style="font-size:17px; font-weight:800; color:#1E293B;">{{ stationLabel }}</div>
           <div style="font-size:12px; color:#94A3B8; margin-top:2px; font-weight:500;">{{ auth.session?.gate }} · {{ auth.session?.building }}</div>
         </div>
-        <button class="change-station-btn" (click)="changeStation()">
+        <button *ngIf="auth.isSuperGuard" class="change-station-btn" (click)="changeStation()">
           <ion-icon name="swap-horizontal-outline" style="font-size:16px;"></ion-icon>
           <span>เปลี่ยน</span>
         </button>
@@ -85,6 +85,31 @@
       </div>
     </div>
 
+    <!-- Super Guard: Guard Reports Inbox -->
+    <div *ngIf="auth.isSuperGuard" style="margin-bottom:20px;">
+      <p style="font-size:11px; font-weight:700; color:#6B7280; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:12px;">
+        <ion-icon name="alert-circle" style="font-size:13px; color:#DC2626; vertical-align:middle; margin-right:4px;"></ion-icon>
+        รายงานจาก รปภ.
+        <span style="background:#DC2626; color:white; font-size:10px; font-weight:800; padding:2px 8px; border-radius:99px; margin-left:6px;">{{ guardReports.length }}</span>
+      </p>
+      <div *ngFor="let report of guardReports" class="report-card" [class.report-unread]="!report.read" (click)="openReport(report)">
+        <div class="report-dot" *ngIf="!report.read"></div>
+        <div class="report-icon-wrap" [style.background]="report.severity === 'high' ? '#FEE2E2' : report.severity === 'medium' ? '#FEF3C7' : '#F1F5F9'"
+             [style.color]="report.severity === 'high' ? '#DC2626' : report.severity === 'medium' ? '#D97706' : '#64748B'">
+          <ion-icon [name]="report.severity === 'high' ? 'warning' : report.severity === 'medium' ? 'alert-circle-outline' : 'document-text-outline'" style="font-size:18px;"></ion-icon>
+        </div>
+        <div class="report-detail">
+          <div class="report-title">{{ report.guardName }} · {{ report.station }}</div>
+          <div class="report-body">{{ report.message }}</div>
+          <div class="report-time">{{ report.time | date:'HH:mm' }} น. · {{ report.time | date:'d MMM' }}</div>
+        </div>
+        <ion-icon name="chevron-forward-outline" style="font-size:16px; color:#CBD5E1; flex-shrink:0;"></ion-icon>
+      </div>
+      <div *ngIf="guardReports.length === 0" style="text-align:center; color:#94A3B8; padding:20px; font-size:13px;">
+        ไม่มีรายงานใหม่
+      </div>
+    </div>
+
     <!-- Super Guard: Audit Log section -->
     <div *ngIf="auth.isSuperGuard" class="info-card" style="margin-bottom:20px; border: 2px solid #FCD34D;">
       <div class="info-header">
@@ -92,7 +117,7 @@
         <span style="color:#B45309; font-weight:800;">หัวหน้า รปภ. — สิทธิ์พิเศษ</span>
       </div>
       <div style="margin-top:14px; display:flex; flex-direction:column; gap:10px;">
-        <button class="super-action-btn">
+        <button class="super-action-btn" (click)="openDashboard()">
           <ion-icon name="analytics-outline" style="font-size:18px; color:#7C3AED;"></ion-icon>
           <span>Global Dashboard</span>
           <ion-icon name="chevron-forward-outline" style="margin-left:auto; color:#CBD5E1; font-size:16px;"></ion-icon>
@@ -105,6 +130,21 @@
         <button class="super-action-btn">
           <ion-icon name="ban-outline" style="font-size:18px; color:#DC2626;"></ion-icon>
           <span>Blacklist Management</span>
+          <ion-icon name="chevron-forward-outline" style="margin-left:auto; color:#CBD5E1; font-size:16px;"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Normal Guard: Daily Report -->
+    <div *ngIf="!auth.isSuperGuard" class="info-card" style="margin-bottom:20px; border: 2px solid #34D399;">
+      <div class="info-header">
+        <ion-icon name="document-text" style="color:#10B981; font-size:18px;"></ion-icon>
+        <span style="color:#047857; font-weight:800;">หน้าที่ประจำวัน</span>
+      </div>
+      <div style="margin-top:14px; display:flex; flex-direction:column; gap:10px;">
+        <button class="super-action-btn" (click)="sendDailyReport()">
+          <ion-icon name="paper-plane-outline" style="font-size:18px; color:#10B981;"></ion-icon>
+          <span>ส่งรายงานให้หัวหน้า (Super Guard)</span>
           <ion-icon name="chevron-forward-outline" style="margin-left:auto; color:#CBD5E1; font-size:16px;"></ion-icon>
         </button>
       </div>

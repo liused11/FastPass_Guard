@@ -24,6 +24,14 @@ const routes: Routes = [
         loadChildren: () => import('../door-access/door-access.module').then(m => m.DoorAccessPageModule)
       },
       {
+        path: 'guard-qr',
+        loadChildren: () => import('../guard-qr/guard-qr.module').then(m => m.GuardQrPageModule)
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

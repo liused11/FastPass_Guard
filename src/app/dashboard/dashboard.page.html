@@ -1,0 +1,68 @@
+<ion-content style="--background: #F1F5F9;">
+
+  <!-- ══ HEADER ══ -->
+  <div class="dash-header">
+    <div class="dash-header-left">
+      <p class="dash-label">GLOBAL OVERVIEW</p>
+      <h1 class="dash-title">Security Dashboard</h1>
+    </div>
+    <div class="dash-refresh" (click)="refresh()">
+      <ion-icon name="refresh-outline" [class.spinning]="isRefreshing"></ion-icon>
+    </div>
+  </div>
+
+  <div class="dash-body">
+    <!-- ══ STATS ROW ══ -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <p class="stat-label">TOTAL GUARDS</p>
+        <p class="stat-value">{{ totalGuards }} / {{ totalAvailable }}</p>
+        <div class="stat-bar"><div class="stat-progress" [style.width.%]="(totalGuards/totalAvailable)*100"></div></div>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">TOTAL WALK-IN</p>
+        <p class="stat-value">{{ totalWalkIn }}</p>
+        <p class="stat-sub">Across all buildings</p>
+      </div>
+    </div>
+
+    <!-- ══ BUILDING LIST ══ -->
+    <p class="section-label">BUILDING STATUS</p>
+    
+    <div class="building-list">
+      <div *ngFor="let b of buildings" class="building-card" (click)="selectBuilding(b)">
+        <div class="bc-info">
+          <div class="bc-title">{{ b.name }}</div>
+          <div class="bc-sub">{{ b.guards }} / {{ b.required }} Guards</div>
+        </div>
+        <div class="bc-right">
+          <div class="bc-badge" [class.bc-badge-ok]="b.guards >= b.required" [class.bc-badge-warn]="b.guards < b.required">
+             <ion-icon [name]="b.guards >= b.required ? 'checkmark-circle' : 'warning'"></ion-icon>
+             <span>{{ b.guards }}/{{ b.required }}</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" style="color: #94A3B8;"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SELECTED BUILDING DETAILS ══ -->
+    <div *ngIf="selectedBuilding" class="details-section">
+      <p class="section-label">PEOPLE AT {{ selectedBuilding.name | uppercase }}</p>
+      
+      <div class="log-card" *ngFor="let p of selectedBuilding.people">
+        <div class="log-avatar" [style.background]="p.type === 'guard' ? '#EEF2FF' : '#F0FDF4'" [style.border-color]="p.type === 'guard' ? '#2563EB' : '#16A34A'">
+          {{ p.name.charAt(0) }}
+        </div>
+        <div class="log-info">
+          <div class="log-name">{{ p.name }}</div>
+          <div class="log-meta">
+            <span class="log-type-badge">{{ p.type }}</span>
+            <span class="log-time">Checked-in {{ p.time | date:'HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>
