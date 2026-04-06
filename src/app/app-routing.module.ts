@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./station-select/station-select.module').then(m => m.StationSelectPageModule)
   },
   {
+    path: 'kiosk',
+    loadChildren: () => import('./kiosk/kiosk.module').then(m => m.KioskModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
@@ -22,4 +26,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,0 +1,248 @@
+<ion-content [scrollY]="false" class="kiosk-register">
+
+  <!-- ── Animated Background ── -->
+  <div class="kiosk-bg">
+    <div class="kiosk-bg__orb kiosk-bg__orb--1"></div>
+    <div class="kiosk-bg__orb kiosk-bg__orb--2"></div>
+  </div>
+
+  <div class="kiosk-register__wrapper">
+
+    <!-- ══════════════════════════════════════════════
+         TOP BAR
+         ══════════════════════════════════════════════ -->
+    <header class="kiosk-reg__header">
+      <button class="kiosk-reg__back-btn" id="kiosk-reg-back" (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span>ย้อนกลับ</span>
+      </button>
+      <div class="kiosk-reg__brand">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        <span>FastPass</span>
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════════
+         STATE: ID CARD READ
+         ══════════════════════════════════════════════ -->
+    <ng-container *ngIf="state === 'id-card'">
+      <section class="kiosk-reg__body kiosk-reg__body--center">
+        <div class="kiosk-reg__id-card-panel">
+
+          <!-- Card reader illustration -->
+          <div class="kiosk-reg__card-illust">
+            <div class="kiosk-reg__card-icon-wrap">
+              <ion-icon name="card-outline" class="kiosk-reg__card-main-icon"></ion-icon>
+              <div class="kiosk-reg__card-pulse"></div>
+            </div>
+            <div class="kiosk-reg__card-arrow">
+              <ion-icon name="arrow-down-outline"></ion-icon>
+            </div>
+            <div class="kiosk-reg__card-slot">
+              <div class="kiosk-reg__slot-inner"></div>
+            </div>
+          </div>
+
+          <!-- Instructions -->
+          <div class="kiosk-reg__id-instructions">
+            <h1 class="kiosk-reg__title">สอดบัตรประชาชน</h1>
+            <p class="kiosk-reg__sub">
+              กรุณาสอดบัตรประชาชนของท่าน<br>ที่ช่องอ่านบัตรด้านล่างของเครื่อง
+            </p>
+            <p class="kiosk-reg__sub-en">
+              Please insert your ID card into the reader below
+            </p>
+          </div>
+
+          <!-- Mock button -->
+          <button class="kiosk-reg__mock-btn" (click)="mockReadIdCard()" [disabled]="idCardLoading">
+            <ng-container *ngIf="!idCardLoading">
+              <ion-icon name="card-outline"></ion-icon>
+              <span>อ่านข้อมูลจำลอง (Mock)</span>
+            </ng-container>
+            <ng-container *ngIf="idCardLoading">
+              <ion-spinner name="crescent" class="kiosk-reg__mock-spinner"></ion-spinner>
+              <span>กำลังอ่านบัตร...</span>
+            </ng-container>
+          </button>
+
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- ══════════════════════════════════════════════
+         STATE: FORM
+         ══════════════════════════════════════════════ -->
+    <ng-container *ngIf="state === 'form'">
+      <section class="kiosk-reg__body kiosk-reg__body--split">
+
+        <!-- ── LEFT: ID Card Summary ── -->
+        <div class="kiosk-reg__left">
+          <div class="kiosk-reg__card-preview">
+            <div class="kiosk-reg__card-preview-header">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              <span>ข้อมูลจากบัตรประชาชน</span>
+            </div>
+
+            <div class="kiosk-reg__card-preview-body">
+              <div class="kiosk-reg__avatar">
+                <ion-icon name="person-outline"></ion-icon>
+              </div>
+              <div class="kiosk-reg__card-detail">
+                <label>ชื่อ-นามสกุล</label>
+                <p class="kiosk-reg__card-value">{{ fullName }}</p>
+              </div>
+              <div class="kiosk-reg__card-detail">
+                <label>เลขบัตรประชาชน</label>
+                <p class="kiosk-reg__card-value kiosk-reg__card-value--mono">
+                  {{ idCardNumber }}
+                </p>
+              </div>
+            </div>
+
+            <div class="kiosk-reg__card-preview-badge">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>อ่านบัตรสำเร็จ</span>
+            </div>
+          </div>
+
+          <!-- Tip -->
+          <div class="kiosk-reg__tip">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>กรุณากรอกข้อมูลเพิ่มเติมในฟอร์มด้านขวา</span>
+          </div>
+        </div>
+
+        <!-- ── RIGHT: Form ── -->
+        <div class="kiosk-reg__right">
+          <div class="kiosk-reg__form-card">
+            <h2 class="kiosk-reg__form-title">กรอกข้อมูลเพิ่มเติม</h2>
+            <p class="kiosk-reg__form-sub">Additional Information</p>
+
+            <!-- ชื่อ (readonly) -->
+            <div class="kiosk-reg__field">
+              <label class="kiosk-reg__label">ชื่อ-นามสกุล</label>
+              <div class="kiosk-reg__input-wrap kiosk-reg__input-wrap--readonly">
+                <ion-icon name="person-outline" class="kiosk-reg__input-icon"></ion-icon>
+                <input type="text" [value]="fullName" readonly class="kiosk-reg__input" />
+                <ion-icon name="lock-closed-outline" class="kiosk-reg__lock-icon"></ion-icon>
+              </div>
+            </div>
+
+            <!-- เลขบัตร (readonly) -->
+            <div class="kiosk-reg__field">
+              <label class="kiosk-reg__label">เลขบัตรประชาชน</label>
+              <div class="kiosk-reg__input-wrap kiosk-reg__input-wrap--readonly">
+                <ion-icon name="card-outline" class="kiosk-reg__input-icon"></ion-icon>
+                <input type="text" [value]="idCardNumber" readonly class="kiosk-reg__input kiosk-reg__input--mono" />
+                <ion-icon name="lock-closed-outline" class="kiosk-reg__lock-icon"></ion-icon>
+              </div>
+            </div>
+
+            <!-- ทะเบียนรถ -->
+            <div class="kiosk-reg__field">
+              <label class="kiosk-reg__label">
+                ทะเบียนรถ
+                <span class="kiosk-reg__optional">(ไม่บังคับ)</span>
+              </label>
+              <div class="kiosk-reg__input-wrap">
+                <ion-icon name="car-outline" class="kiosk-reg__input-icon"></ion-icon>
+                <input
+                  type="text"
+                  placeholder="เช่น กข-1234"
+                  [(ngModel)]="licensePlate"
+                  class="kiosk-reg__input"
+                />
+              </div>
+            </div>
+
+            <!-- สถานที่ติดต่อ -->
+            <div class="kiosk-reg__field">
+              <label class="kiosk-reg__label">
+                สถานที่ที่ต้องการไปติดต่อ
+                <span class="kiosk-reg__required">*</span>
+              </label>
+              <div class="kiosk-reg__select-wrap">
+                <ion-icon name="business-outline" class="kiosk-reg__input-icon"></ion-icon>
+                <select [(ngModel)]="destination" class="kiosk-reg__select">
+                  <option value="" disabled selected>เลือกสถานที่...</option>
+                  <option *ngFor="let d of destinations" [value]="d">{{ d }}</option>
+                </select>
+                <ion-icon name="chevron-down-outline" class="kiosk-reg__chevron"></ion-icon>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button
+              class="kiosk-reg__submit-btn"
+              id="kiosk-reg-submit"
+              [disabled]="!canSubmit"
+              (click)="onSubmit()"
+            >
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              <span>ยืนยันเพื่อรับบัตร</span>
+            </button>
+
+          </div>
+        </div>
+
+      </section>
+    </ng-container>
+
+    <!-- ══════════════════════════════════════════════
+         STATE: SUBMITTING
+         ══════════════════════════════════════════════ -->
+    <ng-container *ngIf="state === 'submitting'">
+      <section class="kiosk-reg__overlay">
+        <div class="kiosk-reg__overlay-inner">
+          <div class="kiosk-spinner">
+            <div class="kiosk-spinner__ring"></div>
+            <ion-icon name="document-text-outline" class="kiosk-spinner__icon"></ion-icon>
+          </div>
+          <h2 class="kiosk-reg__overlay-title">กำลังบันทึกข้อมูล...</h2>
+          <p class="kiosk-reg__overlay-sub">Processing your registration</p>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- ══════════════════════════════════════════════
+         STATE: SUCCESS
+         ══════════════════════════════════════════════ -->
+    <ng-container *ngIf="state === 'success'">
+      <section class="kiosk-reg__overlay kiosk-reg__overlay--success">
+        <div class="kiosk-reg__overlay-inner">
+
+          <!-- Check animation -->
+          <div class="kiosk-check">
+            <div class="kiosk-check__circle"></div>
+            <ion-icon name="checkmark-outline" class="kiosk-check__icon"></ion-icon>
+          </div>
+
+          <h2 class="kiosk-reg__overlay-title kiosk-reg__overlay-title--success">
+            ลงทะเบียนสำเร็จ
+          </h2>
+
+          <p class="kiosk-reg__success-name">{{ fullName }}</p>
+
+          <!-- Action cards -->
+          <div class="kiosk-reg__success-cards">
+            <div class="kiosk-reg__success-card">
+              <ion-icon name="receipt-outline"></ion-icon>
+              <span>กรุณารับสลิปติดต่อ</span>
+            </div>
+            <div class="kiosk-reg__success-card kiosk-reg__success-card--gate">
+              <ion-icon name="lock-open-outline"></ion-icon>
+              <span>ไม้กั้นกำลังเปิด...</span>
+            </div>
+          </div>
+
+          <p class="kiosk-reg__redirect-hint">
+            ระบบจะกลับสู่หน้าหลักอัตโนมัติ
+          </p>
+        </div>
+      </section>
+    </ng-container>
+
+  </div>
+
+</ion-content>

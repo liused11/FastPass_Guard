@@ -1,0 +1,84 @@
+<ion-content [scrollY]="false" class="kiosk-home">
+
+  <!-- ── Animated Background ── -->
+  <div class="kiosk-bg">
+    <div class="kiosk-bg__orb kiosk-bg__orb--1"></div>
+    <div class="kiosk-bg__orb kiosk-bg__orb--2"></div>
+    <div class="kiosk-bg__orb kiosk-bg__orb--3"></div>
+  </div>
+
+  <div class="kiosk-home__wrapper">
+
+    <!-- ── Top Bar: Logo + Clock ── -->
+    <header class="kiosk-home__header">
+      <div class="kiosk-home__brand">
+        <div class="kiosk-home__logo-icon">
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
+        </div>
+        <div class="kiosk-home__logo-text">
+          <span class="kiosk-home__logo-title">FastPass</span>
+          <span class="kiosk-home__logo-sub">Self-Service Kiosk</span>
+        </div>
+      </div>
+      <div class="kiosk-home__clock">
+        <span class="kiosk-home__time">{{ currentTime }}</span>
+        <span class="kiosk-home__date">{{ currentDate }}</span>
+      </div>
+    </header>
+
+    <!-- ── Heading ── -->
+    <section class="kiosk-home__heading">
+      <h1 class="kiosk-home__title">ยินดีต้อนรับ</h1>
+      <p class="kiosk-home__subtitle">กรุณาเลือกประเภทการเข้าอาคาร</p>
+      <p class="kiosk-home__subtitle-en">Please select your entry type</p>
+    </section>
+
+    <!-- ── Selection Cards ── -->
+    <section class="kiosk-home__cards">
+
+      <!-- Card 1: QR Code / Invited Guest -->
+      <button class="kiosk-card kiosk-card--qr" id="kiosk-btn-scan-qr" (click)="goScanQr()">
+        <div class="kiosk-card__glow"></div>
+        <div class="kiosk-card__icon-wrap">
+          <ion-icon name="qr-code-outline"></ion-icon>
+        </div>
+        <div class="kiosk-card__content">
+          <h2 class="kiosk-card__title">ผู้ที่มี QR Code</h2>
+          <p class="kiosk-card__title-en">Invited Guest</p>
+          <p class="kiosk-card__desc">
+            สำหรับผู้ที่ได้รับเชิญ หรือมี QR Code<br>สแกนเพื่อเข้าอาคารอัตโนมัติ
+          </p>
+        </div>
+        <div class="kiosk-card__arrow">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </button>
+
+      <!-- Card 2: Walk-in Visitor -->
+      <button class="kiosk-card kiosk-card--visitor" id="kiosk-btn-register" (click)="goRegister()">
+        <div class="kiosk-card__glow"></div>
+        <div class="kiosk-card__icon-wrap">
+          <ion-icon name="card-outline"></ion-icon>
+        </div>
+        <div class="kiosk-card__content">
+          <h2 class="kiosk-card__title">ผู้มาติดต่อทั่วไป</h2>
+          <p class="kiosk-card__title-en">Walk-in Visitor</p>
+          <p class="kiosk-card__desc">
+            สำหรับผู้มาติดต่อที่ยังไม่มี QR Code<br>ลงทะเบียนด้วยบัตรประชาชน
+          </p>
+        </div>
+        <div class="kiosk-card__arrow">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+      </button>
+
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="kiosk-home__footer">
+      <p>Powered by <strong>FastPass</strong> · ระบบรักษาความปลอดภัยอัจฉริยะ</p>
+    </footer>
+
+  </div>
+
+</ion-content>

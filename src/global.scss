@@ -148,3 +148,54 @@ ion-alert,
     box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35) !important;
   }
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   KIOSK MODE — Global Overrides
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+body.kiosk-mode {
+  /* Full-screen lock */
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  top: 0;
+  left: 0;
+
+  /* Hide scrollbars everywhere */
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* IE / Edge */
+  &::-webkit-scrollbar {
+    display: none !important;     /* Chrome / Safari */
+  }
+
+  /* Prevent zoom gestures */
+  touch-action: manipulation;
+  -ms-touch-action: manipulation;
+
+  /* Prevent text selection (kiosk context) */
+  user-select: none;
+  -webkit-user-select: none;
+
+  /* Prevent context-menu / long-press */
+  -webkit-touch-callout: none;
+
+  /* Disable pull-to-refresh */
+  overscroll-behavior: none;
+
+  /* Hide Ionic tab-bar if somehow still rendered */
+  ion-tab-bar {
+    display: none !important;
+  }
+}
+
+/* Also hide scrollbars on all ion-content inside kiosk */
+body.kiosk-mode ion-content {
+  --overflow: hidden;
+  &::part(scroll) {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+  }
+}

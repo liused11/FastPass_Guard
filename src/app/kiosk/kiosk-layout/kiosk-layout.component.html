@@ -1,0 +1,48 @@
+<!-- Kiosk layout: full-screen, no tab-bar, no toolbar -->
+<ion-router-outlet></ion-router-outlet>
+
+<!-- ── Idle Warning Popup Overlay ── -->
+<div
+  class="kiosk-idle-overlay"
+  *ngIf="showWarning"
+  (click)="onWarningTap()"
+>
+  <div class="kiosk-idle-popup">
+
+    <!-- Countdown ring -->
+    <div class="kiosk-idle__ring-wrap">
+      <svg class="kiosk-idle__ring" viewBox="0 0 120 120">
+        <circle
+          class="kiosk-idle__ring-bg"
+          cx="60" cy="60" r="52"
+          fill="none"
+          stroke-width="6"
+        />
+        <circle
+          class="kiosk-idle__ring-progress"
+          cx="60" cy="60" r="52"
+          fill="none"
+          stroke-width="6"
+          stroke-linecap="round"
+          [style.stroke-dashoffset]="(1 - countdown / 10) * 327"
+        />
+      </svg>
+      <span class="kiosk-idle__countdown">{{ countdown }}</span>
+    </div>
+
+    <h2 class="kiosk-idle__title">ท่านยังอยู่หน้าจอหรือไม่?</h2>
+    <p class="kiosk-idle__sub">Are you still there?</p>
+
+    <p class="kiosk-idle__desc">
+      หน้าจอจะรีเซ็ตอัตโนมัติใน <strong>{{ countdown }}</strong> วินาที
+    </p>
+
+    <button class="kiosk-idle__btn" (click)="onWarningTap()">
+      <ion-icon name="hand-left-outline"></ion-icon>
+      <span>แตะเพื่อดำเนินการต่อ</span>
+    </button>
+
+    <p class="kiosk-idle__hint">Touch anywhere to continue</p>
+
+  </div>
+</div>

@@ -1,0 +1,430 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Kiosk Home — Visitor Type Selection (Premium Dark)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:host {
+  --kiosk-bg: #0B0F1A;
+  --kiosk-surface: rgba(255, 255, 255, 0.04);
+  --kiosk-border: rgba(255, 255, 255, 0.08);
+  --kiosk-accent: #00E5A0;
+  --kiosk-accent-glow: rgba(0, 229, 160, 0.25);
+  --kiosk-blue: #3B82F6;
+  --kiosk-blue-glow: rgba(59, 130, 246, 0.25);
+  --kiosk-text: #FFFFFF;
+  --kiosk-text-muted: rgba(255, 255, 255, 0.5);
+  --kiosk-text-dim: rgba(255, 255, 255, 0.3);
+}
+
+/* ── ion-content background ──────────────────────────── */
+.kiosk-home {
+  --background: var(--kiosk-bg);
+}
+
+/* ── Animated orb background (shared across kiosk) ──── */
+.kiosk-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.kiosk-bg__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.3;
+}
+
+.kiosk-bg__orb--1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #00E5A0, transparent 70%);
+  top: -15%;
+  right: -10%;
+  animation: orbDrift1 14s ease-in-out infinite alternate;
+}
+
+.kiosk-bg__orb--2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #3B82F6, transparent 70%);
+  bottom: -10%;
+  left: -8%;
+  animation: orbDrift2 18s ease-in-out infinite alternate;
+}
+
+.kiosk-bg__orb--3 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #8B5CF6, transparent 70%);
+  top: 50%;
+  left: 45%;
+  animation: orbDrift3 20s ease-in-out infinite alternate;
+}
+
+@keyframes orbDrift1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-80px, 100px) scale(1.1); }
+}
+@keyframes orbDrift2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(100px, -60px) scale(1.15); }
+}
+@keyframes orbDrift3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, 70px) scale(0.85); }
+}
+
+/* ── Main Wrapper ────────────────────────────────────── */
+.kiosk-home__wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 40px 56px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Header: brand + clock ───────────────────────────── */
+.kiosk-home__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.kiosk-home__brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.kiosk-home__logo-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 229, 160, 0.15), rgba(59, 130, 246, 0.12));
+  border: 1.5px solid rgba(0, 229, 160, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  ion-icon {
+    font-size: 28px;
+    color: var(--kiosk-accent);
+  }
+}
+
+.kiosk-home__logo-title {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--kiosk-text);
+  letter-spacing: -0.5px;
+}
+
+.kiosk-home__logo-sub {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--kiosk-text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.kiosk-home__clock {
+  text-align: right;
+}
+
+.kiosk-home__time {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--kiosk-text);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.kiosk-home__date {
+  display: block;
+  font-family: 'Prompt', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--kiosk-text-muted);
+  margin-top: 4px;
+}
+
+/* ── Heading ─────────────────────────────────────────── */
+.kiosk-home__heading {
+  text-align: center;
+  margin: auto 0 0;
+  padding-top: 24px;
+}
+
+.kiosk-home__title {
+  font-family: 'Prompt', sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--kiosk-text);
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+}
+
+.kiosk-home__subtitle {
+  font-family: 'Prompt', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--kiosk-text-muted);
+  margin: 0;
+}
+
+.kiosk-home__subtitle-en {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--kiosk-text-dim);
+  margin: 6px 0 0;
+  letter-spacing: 1px;
+}
+
+/* ── Selection Cards ─────────────────────────────────── */
+.kiosk-home__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin: auto 0;
+  padding: 48px 0;
+  max-width: 960px;
+  width: 100%;
+  align-self: center;
+}
+
+.kiosk-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 40px 48px;
+  border-radius: 32px;
+  border: 1.5px solid var(--kiosk-border);
+  background: var(--kiosk-surface);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s,
+              box-shadow 0.3s;
+
+  /* Reset button defaults */
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  font: inherit;
+  color: inherit;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Glow layer behind card on hover/active */
+.kiosk-card__glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 34px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── QR Card variant ── */
+.kiosk-card--qr {
+  .kiosk-card__glow {
+    background: linear-gradient(135deg, rgba(0, 229, 160, 0.08), rgba(0, 229, 160, 0.02));
+  }
+
+  &:hover,
+  &:active {
+    border-color: rgba(0, 229, 160, 0.35);
+    box-shadow: 0 12px 48px var(--kiosk-accent-glow),
+                0 0 120px rgba(0, 229, 160, 0.06);
+
+    .kiosk-card__glow {
+      opacity: 1;
+    }
+  }
+
+  .kiosk-card__icon-wrap {
+    background: linear-gradient(135deg, rgba(0, 229, 160, 0.12), rgba(0, 229, 160, 0.04));
+    border-color: rgba(0, 229, 160, 0.2);
+
+    ion-icon {
+      color: var(--kiosk-accent);
+    }
+  }
+
+  .kiosk-card__arrow ion-icon {
+    color: var(--kiosk-accent);
+  }
+}
+
+/* ── Visitor Card variant ── */
+.kiosk-card--visitor {
+  .kiosk-card__glow {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(59, 130, 246, 0.02));
+  }
+
+  &:hover,
+  &:active {
+    border-color: rgba(59, 130, 246, 0.35);
+    box-shadow: 0 12px 48px var(--kiosk-blue-glow),
+                0 0 120px rgba(59, 130, 246, 0.06);
+
+    .kiosk-card__glow {
+      opacity: 1;
+    }
+  }
+
+  .kiosk-card__icon-wrap {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(59, 130, 246, 0.04));
+    border-color: rgba(59, 130, 246, 0.2);
+
+    ion-icon {
+      color: var(--kiosk-blue);
+    }
+  }
+
+  .kiosk-card__arrow ion-icon {
+    color: var(--kiosk-blue);
+  }
+}
+
+/* ── Card internals ── */
+.kiosk-card__icon-wrap {
+  position: relative;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  border-radius: 32px;
+  border: 1.5px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  ion-icon {
+    font-size: 56px;
+  }
+}
+
+.kiosk-card__content {
+  position: relative;
+  z-index: 1;
+}
+
+.kiosk-card__title {
+  font-family: 'Prompt', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--kiosk-text);
+  margin: 0 0 4px;
+}
+
+.kiosk-card__title-en {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--kiosk-text-muted);
+  margin: 0 0 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.kiosk-card__desc {
+  font-family: 'Prompt', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--kiosk-text-dim);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.kiosk-card__arrow {
+  position: relative;
+  z-index: 1;
+  margin-top: 28px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
+    font-size: 24px;
+    transition: transform 0.2s;
+  }
+}
+
+.kiosk-card:hover .kiosk-card__arrow ion-icon,
+.kiosk-card:active .kiosk-card__arrow ion-icon {
+  transform: translateX(3px);
+}
+
+/* ── Footer ──────────────────────────────────────────── */
+.kiosk-home__footer {
+  text-align: center;
+  padding-bottom: 8px;
+
+  p {
+    font-family: 'Prompt', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--kiosk-text-dim);
+    margin: 0;
+
+    strong {
+      font-weight: 700;
+      color: var(--kiosk-text-muted);
+    }
+  }
+}
+
+/* ── Entrance animation ──────────────────────────────── */
+.kiosk-home__heading {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.kiosk-card--qr {
+  animation: fadeSlideUp 0.7s 0.1s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.kiosk-card--visitor {
+  animation: fadeSlideUp 0.7s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

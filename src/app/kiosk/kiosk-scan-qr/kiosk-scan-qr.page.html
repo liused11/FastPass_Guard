@@ -1,0 +1,138 @@
+<ion-content [scrollY]="false" class="kiosk-scan">
+
+  <!-- ── Animated Background ── -->
+  <div class="kiosk-bg">
+    <div class="kiosk-bg__orb kiosk-bg__orb--1"></div>
+    <div class="kiosk-bg__orb kiosk-bg__orb--2"></div>
+  </div>
+
+  <div class="kiosk-scan__wrapper">
+
+    <!-- ══════════════════════════════════════════════
+         TOP BAR: Back + Logo
+         ══════════════════════════════════════════════ -->
+    <header class="kiosk-scan__header">
+      <button class="kiosk-scan__back-btn" id="kiosk-scan-back" (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span>ย้อนกลับ</span>
+      </button>
+      <div class="kiosk-scan__brand">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        <span>FastPass</span>
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════════
+         STATE: SCANNING
+         ══════════════════════════════════════════════ -->
+    <ng-container *ngIf="state === 'scanning'">
+      <section class="kiosk-scan__body">
+
+        <!-- Instructions -->
+        <div class="kiosk-scan__instructions">
+          <h1 class="kiosk-scan__title">สแกน QR Code</h1>
+          <p class="kiosk-scan__subtitle">
+            กรุณานำ QR Code ของท่าน<br>สแกนที่ช่องอ่านด้านล่าง
+          </p>
+          <p class="kiosk-scan__subtitle-en">
+            Please scan your QR Code at the reader below
+          </p>
+        </div>
+
+        <!-- Camera viewport (placeholder) -->
+        <div class="kiosk-scan__viewport">
+          <!-- Corner brackets -->
+          <div class="scan-corner scan-corner--tl"></div>
+          <div class="scan-corner scan-corner--tr"></div>
+          <div class="scan-corner scan-corner--bl"></div>
+          <div class="scan-corner scan-corner--br"></div>
+
+          <!-- Animated scan line -->
+          <div class="scan-line" [style.top.%]="scanLinePos"></div>
+
+          <!-- Camera placeholder -->
+          <div class="scan-camera-placeholder">
+            <ion-icon name="camera-outline"></ion-icon>
+            <p>กล้องพร้อมสแกน</p>
+          </div>
+        </div>
+
+        <!-- Demo button (remove in production) -->
+        <button class="kiosk-scan__demo-btn" (click)="onQrScanned('DEMO-CODE')">
+          <ion-icon name="qr-code-outline"></ion-icon>
+          <span>ทดสอบ: จำลองสแกน QR สำเร็จ</span>
+        </button>
+
+      </section>
+    </ng-container>
+
+    <!-- ══════════════════════════════════════════════
+         STATE: LOADING
+         ══════════════════════════════════════════════ -->
+    <ng-container *ngIf="state === 'loading'">
+      <section class="kiosk-scan__overlay kiosk-scan__overlay--loading">
+        <div class="kiosk-scan__spinner-wrap">
+          <div class="kiosk-spinner">
+            <div class="kiosk-spinner__ring"></div>
+            <ion-icon name="shield-checkmark-outline" class="kiosk-spinner__icon"></ion-icon>
+          </div>
+          <h2 class="kiosk-scan__overlay-title">กำลังตรวจสอบข้อมูล...</h2>
+          <p class="kiosk-scan__overlay-sub">Verifying your access code</p>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- ══════════════════════════════════════════════
+         STATE: SUCCESS
+         ══════════════════════════════════════════════ -->
+    <ng-container *ngIf="state === 'success'">
+      <section class="kiosk-scan__overlay kiosk-scan__overlay--success">
+        <div class="kiosk-scan__result-wrap">
+          <!-- Animated check circle -->
+          <div class="kiosk-check">
+            <div class="kiosk-check__circle"></div>
+            <ion-icon name="checkmark-outline" class="kiosk-check__icon"></ion-icon>
+          </div>
+
+          <h2 class="kiosk-scan__overlay-title kiosk-scan__overlay-title--success">
+            ยินดีต้อนรับ
+          </h2>
+          <p class="kiosk-scan__guest-name">{{ guestName }}</p>
+          <p class="kiosk-scan__guest-purpose">{{ guestPurpose }}</p>
+
+          <div class="kiosk-scan__gate-msg">
+            <ion-icon name="lock-open-outline"></ion-icon>
+            <span>กำลังเปิดไม้กั้น...</span>
+          </div>
+
+          <p class="kiosk-scan__redirect-hint">
+            ระบบจะกลับสู่หน้าหลักอัตโนมัติ
+          </p>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- ══════════════════════════════════════════════
+         STATE: ERROR
+         ══════════════════════════════════════════════ -->
+    <ng-container *ngIf="state === 'error'">
+      <section class="kiosk-scan__overlay kiosk-scan__overlay--error">
+        <div class="kiosk-scan__result-wrap">
+          <div class="kiosk-error-icon">
+            <ion-icon name="close-outline"></ion-icon>
+          </div>
+          <h2 class="kiosk-scan__overlay-title kiosk-scan__overlay-title--error">
+            ไม่สามารถยืนยันได้
+          </h2>
+          <p class="kiosk-scan__error-msg">{{ errorMessage }}</p>
+          <button class="kiosk-scan__retry-btn" (click)="retryScan()">
+            <ion-icon name="refresh-outline"></ion-icon>
+            <span>สแกนใหม่</span>
+          </button>
+        </div>
+      </section>
+    </ng-container>
+
+  </div>
+
+</ion-content>

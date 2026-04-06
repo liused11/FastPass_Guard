@@ -1,0 +1,40 @@
+<ion-content [scrollY]="false" class="kiosk-welcome">
+
+  <!-- Animated background -->
+  <div class="kiosk-bg">
+    <div class="kiosk-bg__orb kiosk-bg__orb--1"></div>
+    <div class="kiosk-bg__orb kiosk-bg__orb--2"></div>
+    <div class="kiosk-bg__orb kiosk-bg__orb--3"></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="kiosk-welcome__wrapper" (click)="onTapStart()">
+
+    <!-- Logo / Brand -->
+    <div class="kiosk-welcome__brand">
+      <div class="kiosk-welcome__logo">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+      </div>
+      <h1 class="kiosk-welcome__title">FastPass</h1>
+      <p class="kiosk-welcome__subtitle">ระบบลงทะเบียนขาเข้าอัตโนมัติ</p>
+    </div>
+
+    <!-- Clock -->
+    <div class="kiosk-welcome__clock">
+      <span class="kiosk-welcome__time">{{ currentTime }}</span>
+      <span class="kiosk-welcome__date">{{ currentDate }}</span>
+    </div>
+
+    <!-- CTA -->
+    <div class="kiosk-welcome__cta">
+      <div class="kiosk-welcome__pulse-ring"></div>
+      <div class="kiosk-welcome__cta-btn">
+        <ion-icon name="hand-left-outline"></ion-icon>
+        <span>แตะหน้าจอเพื่อเริ่มต้น</span>
+      </div>
+      <p class="kiosk-welcome__hint">Touch screen to start</p>
+    </div>
+
+  </div>
+
+</ion-content>
