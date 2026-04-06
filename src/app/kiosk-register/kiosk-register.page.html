@@ -29,28 +29,26 @@
       <section class="kiosk-reg__body kiosk-reg__body--center">
         <div class="kiosk-reg__id-card-panel">
 
-          <!-- Card reader illustration -->
-          <div class="kiosk-reg__card-illust">
-            <div class="kiosk-reg__card-icon-wrap">
-              <ion-icon name="card-outline" class="kiosk-reg__card-main-icon"></ion-icon>
-              <div class="kiosk-reg__card-pulse"></div>
+          <!-- Scanner Viewport style illustration -->
+          <div class="kiosk-reg__scanner-box">
+            <div class="kiosk-reg__scanner-line"></div>
+            <div class="kiosk-reg__scanner-corners">
+              <div class="corner tl"></div>
+              <div class="corner tr"></div>
+              <div class="corner bl"></div>
+              <div class="corner br"></div>
             </div>
-            <div class="kiosk-reg__card-arrow">
-              <ion-icon name="arrow-down-outline"></ion-icon>
-            </div>
-            <div class="kiosk-reg__card-slot">
-              <div class="kiosk-reg__slot-inner"></div>
-            </div>
+            <ion-icon name="id-card-outline" class="kiosk-reg__scanner-icon"></ion-icon>
           </div>
-
+ 
           <!-- Instructions -->
           <div class="kiosk-reg__id-instructions">
-            <h1 class="kiosk-reg__title">สอดบัตรประชาชน</h1>
+            <h1 class="kiosk-reg__title">สแกนบัตรประชาชน</h1>
             <p class="kiosk-reg__sub">
-              กรุณาสอดบัตรประชาชนของท่าน<br>ที่ช่องอ่านบัตรด้านล่างของเครื่อง
+              กรุณาวางบัตรประชาชนที่ช่องสแกนด้านล่าง
             </p>
             <p class="kiosk-reg__sub-en">
-              Please insert your ID card into the reader below
+              Please place your ID card on the scanner
             </p>
           </div>
 
@@ -58,7 +56,7 @@
           <button class="kiosk-reg__mock-btn" (click)="mockReadIdCard()" [disabled]="idCardLoading">
             <ng-container *ngIf="!idCardLoading">
               <ion-icon name="card-outline"></ion-icon>
-              <span>อ่านข้อมูลจำลอง (Mock)</span>
+            <span>จำลองการสแกนบัตร (Mock)</span>
             </ng-container>
             <ng-container *ngIf="idCardLoading">
               <ion-spinner name="crescent" class="kiosk-reg__mock-spinner"></ion-spinner>
@@ -139,28 +137,10 @@
               </div>
             </div>
 
-            <!-- ทะเบียนรถ -->
+            <!-- Destination -->
             <div class="kiosk-reg__field">
               <label class="kiosk-reg__label">
-                ทะเบียนรถ
-                <span class="kiosk-reg__optional">(ไม่บังคับ)</span>
-              </label>
-              <div class="kiosk-reg__input-wrap">
-                <ion-icon name="car-outline" class="kiosk-reg__input-icon"></ion-icon>
-                <input
-                  type="text"
-                  placeholder="เช่น กข-1234"
-                  [(ngModel)]="licensePlate"
-                  class="kiosk-reg__input"
-                />
-              </div>
-            </div>
-
-            <!-- สถานที่ติดต่อ -->
-            <div class="kiosk-reg__field">
-              <label class="kiosk-reg__label">
-                สถานที่ที่ต้องการไปติดต่อ
-                <span class="kiosk-reg__required">*</span>
+                สถานที่ที่ต้องการไปติดต่อ <span class="kiosk-reg__required">*</span>
               </label>
               <div class="kiosk-reg__select-wrap">
                 <ion-icon name="business-outline" class="kiosk-reg__input-icon"></ion-icon>
@@ -169,6 +149,22 @@
                   <option *ngFor="let d of destinations" [value]="d">{{ d }}</option>
                 </select>
                 <ion-icon name="chevron-down-outline" class="kiosk-reg__chevron"></ion-icon>
+              </div>
+            </div>
+
+            <!-- License Plate -->
+            <div class="kiosk-reg__field">
+              <label class="kiosk-reg__label">
+                ทะเบียนรถที่ใช้ <span class="kiosk-reg__optional">(ตัวอย่าง: กข 1234)</span>
+              </label>
+              <div class="kiosk-reg__input-wrap">
+                <ion-icon name="car-outline" class="kiosk-reg__input-icon"></ion-icon>
+                <input
+                  type="text"
+                  placeholder="หากไม่ได้นำรถมา ไม่ต้องกรอก"
+                  [(ngModel)]="licensePlate"
+                  class="kiosk-reg__input"
+                />
               </div>
             </div>
 
