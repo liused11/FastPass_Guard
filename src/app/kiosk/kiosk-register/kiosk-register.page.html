@@ -1,4 +1,4 @@
-<ion-content [scrollY]="false" class="kiosk-register">
+<ion-content [scrollY]="false" class="kiosk-register kiosk-shared">
 
   <!-- ── Animated Background ── -->
   <div class="kiosk-bg">
@@ -193,14 +193,14 @@
          STATE: SUBMITTING
          ══════════════════════════════════════════════ -->
     <ng-container *ngIf="state === 'submitting'">
-      <section class="kiosk-reg__overlay">
-        <div class="kiosk-reg__overlay-inner">
+      <section class="kiosk-overlay">
+        <div class="kiosk-overlay-inner">
           <div class="kiosk-spinner">
             <div class="kiosk-spinner__ring"></div>
             <ion-icon name="document-text-outline" class="kiosk-spinner__icon"></ion-icon>
           </div>
-          <h2 class="kiosk-reg__overlay-title">กำลังบันทึกข้อมูล...</h2>
-          <p class="kiosk-reg__overlay-sub">Processing your registration</p>
+          <h2 class="kiosk-overlay-title">กำลังบันทึกข้อมูล...</h2>
+          <p class="kiosk-overlay-sub">Processing your registration</p>
         </div>
       </section>
     </ng-container>
@@ -209,8 +209,8 @@
          STATE: SUCCESS
          ══════════════════════════════════════════════ -->
     <ng-container *ngIf="state === 'success'">
-      <section class="kiosk-reg__overlay kiosk-reg__overlay--success">
-        <div class="kiosk-reg__overlay-inner">
+      <section class="kiosk-overlay">
+        <div class="kiosk-overlay-inner">
 
           <!-- Check animation -->
           <div class="kiosk-check">
@@ -218,7 +218,7 @@
             <ion-icon name="checkmark-outline" class="kiosk-check__icon"></ion-icon>
           </div>
 
-          <h2 class="kiosk-reg__overlay-title kiosk-reg__overlay-title--success">
+          <h2 class="kiosk-overlay-title kiosk-overlay-title--success">
             ลงทะเบียนสำเร็จ
           </h2>
 

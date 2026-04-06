@@ -1,4 +1,4 @@
-<ion-content [scrollY]="false" class="kiosk-scan">
+<ion-content [scrollY]="false" class="kiosk-scan kiosk-shared">
 
   <!-- ── Animated Background ── -->
   <div class="kiosk-bg">
@@ -66,36 +66,32 @@
       </section>
     </ng-container>
 
-    <!-- ══════════════════════════════════════════════
-         STATE: LOADING
-         ══════════════════════════════════════════════ -->
+    <!-- ── State: Loading ── -->
     <ng-container *ngIf="state === 'loading'">
-      <section class="kiosk-scan__overlay kiosk-scan__overlay--loading">
-        <div class="kiosk-scan__spinner-wrap">
+      <section class="kiosk-overlay">
+        <div class="kiosk-overlay-inner">
           <div class="kiosk-spinner">
             <div class="kiosk-spinner__ring"></div>
-            <ion-icon name="shield-checkmark-outline" class="kiosk-spinner__icon"></ion-icon>
+            <ion-icon name="qr-code-outline" class="kiosk-spinner__icon"></ion-icon>
           </div>
-          <h2 class="kiosk-scan__overlay-title">กำลังตรวจสอบข้อมูล...</h2>
-          <p class="kiosk-scan__overlay-sub">Verifying your access code</p>
+          <h2 class="kiosk-overlay-title">กำลังตรวจสอบข้อมูล...</h2>
+          <p class="kiosk-overlay-sub">Verifying your QR Code</p>
         </div>
       </section>
     </ng-container>
 
-    <!-- ══════════════════════════════════════════════
-         STATE: SUCCESS
-         ══════════════════════════════════════════════ -->
+    <!-- ── State: Success ── -->
     <ng-container *ngIf="state === 'success'">
-      <section class="kiosk-scan__overlay kiosk-scan__overlay--success">
-        <div class="kiosk-scan__result-wrap">
-          <!-- Animated check circle -->
+      <section class="kiosk-overlay">
+        <div class="kiosk-overlay-inner">
+          <!-- Check animation -->
           <div class="kiosk-check">
             <div class="kiosk-check__circle"></div>
             <ion-icon name="checkmark-outline" class="kiosk-check__icon"></ion-icon>
           </div>
 
-          <h2 class="kiosk-scan__overlay-title kiosk-scan__overlay-title--success">
-            ยินดีต้อนรับ
+          <h2 class="kiosk-overlay-title kiosk-overlay-title--success">
+            ยืนยันตัวตนสำเร็จ
           </h2>
           <p class="kiosk-scan__guest-name">{{ guestName }}</p>
           <p class="kiosk-scan__guest-purpose">{{ guestPurpose }}</p>
@@ -112,17 +108,16 @@
       </section>
     </ng-container>
 
-    <!-- ══════════════════════════════════════════════
-         STATE: ERROR
-         ══════════════════════════════════════════════ -->
+    <!-- ── State: Error ── -->
     <ng-container *ngIf="state === 'error'">
-      <section class="kiosk-scan__overlay kiosk-scan__overlay--error">
-        <div class="kiosk-scan__result-wrap">
+      <section class="kiosk-overlay">
+        <div class="kiosk-overlay-inner">
           <div class="kiosk-error-icon">
             <ion-icon name="close-outline"></ion-icon>
           </div>
-          <h2 class="kiosk-scan__overlay-title kiosk-scan__overlay-title--error">
-            ไม่สามารถยืนยันได้
+
+          <h2 class="kiosk-overlay-title kiosk-overlay-title--error">
+            ไม่สามารถเข้าถึงได้
           </h2>
           <p class="kiosk-scan__error-msg">{{ errorMessage }}</p>
           <button class="kiosk-scan__retry-btn" (click)="retryScan()">

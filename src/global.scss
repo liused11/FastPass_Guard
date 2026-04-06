@@ -188,14 +188,46 @@ body.kiosk-mode {
   }
 }
 
-/* Also hide scrollbars on all ion-content inside kiosk */
-body.kiosk-mode ion-content {
-  --overflow: hidden;
-  &::part(scroll) {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      display: none !important;
-    }
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   KIOSK SHARED UI — (Backgrounds, Animations, Overlays)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.kiosk-shared {
+  /* ── Animated Background ── */
+  .kiosk-bg {
+    position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+    .kiosk-bg__orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.2; }
+    .kiosk-bg__orb--1 { width: 500px; height: 500px; background: radial-gradient(circle, #3B82F6, transparent 70%); top: -12%; right: -8%; animation: orbK1 14s ease-in-out infinite alternate; }
+    .kiosk-bg__orb--2 { width: 400px; height: 400px; background: radial-gradient(circle, #8B5CF6, transparent 70%); bottom: -10%; left: -5%; animation: orbK2 18s ease-in-out infinite alternate; }
+  }
+
+  /* ── Overlays ── */
+  .kiosk-overlay {
+    flex: 1; display: flex; align-items: center; justify-content: center; animation: kFadeU 0.4s ease forwards;
+    .kiosk-overlay-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .kiosk-overlay-title { font-family: 'Prompt', sans-serif; font-size: 36px; font-weight: 700; color: #FFF; margin: 0 0 8px; }
+    .kiosk-overlay-title--success { color: #00E5A0; }
+    .kiosk-overlay-sub { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.3); letter-spacing: 1px; margin: 0; }
+  }
+
+  /* ── Spinner ── */
+  .kiosk-spinner {
+    position: relative; width: 120px; height: 120px; margin-bottom: 36px;
+    .kiosk-spinner__ring { position: absolute; inset: 0; border-radius: 50%; border: 4px solid rgba(255,255,255,0.06); border-top-color: #00E5A0; animation: kSpin 1.2s linear infinite; }
+    .kiosk-spinner__icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; color: #00E5A0; opacity: 0.6; }
+  }
+
+  /* ── Checkmark ── */
+  .kiosk-check {
+    position: relative; width: 120px; height: 120px; margin-bottom: 32px;
+    .kiosk-check__circle { position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(135deg, rgba(0,229,160,0.15), rgba(0,229,160,0.05)); border: 3px solid #00E5A0; animation: kPulse 1.8s ease-in-out infinite; }
+    .kiosk-check__icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 56px; color: #00E5A0; animation: kPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
   }
 }
+
+/* ── Keyframes ── */
+@keyframes orbK1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-60px, 80px) scale(1.12); } }
+@keyframes orbK2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(70px, -50px) scale(1.1); } }
+@keyframes kSpin { to { transform: rotate(360deg); } }
+@keyframes kPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: 0.85; } }
+@keyframes kPop { 0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+@keyframes kFadeU { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
