@@ -1,18 +1,17 @@
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   Kiosk Scan QR — Black · White · Blue Theme
+   Kiosk Scan QR — Premium Dark Kiosk Design
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 :host {
-  --kiosk-bg: #060D1A;
-  --kiosk-surface: rgba(255, 255, 255, 0.05);
-  --kiosk-border: rgba(255, 255, 255, 0.12);
-  --kiosk-accent: #3B82F6;
-  --kiosk-accent-light: #60A5FA;
-  --kiosk-accent-glow: rgba(59, 130, 246, 0.35);
-  --kiosk-white: #FFFFFF;
+  --kiosk-bg: #0B0F1A;
+  --kiosk-surface: rgba(255, 255, 255, 0.04);
+  --kiosk-border: rgba(255, 255, 255, 0.08);
+  --kiosk-accent: #00E5A0;
+  --kiosk-accent-glow: rgba(0, 229, 160, 0.3);
+  --kiosk-blue: #3B82F6;
   --kiosk-red: #EF4444;
   --kiosk-text: #FFFFFF;
-  --kiosk-text-muted: rgba(255, 255, 255, 0.6);
+  --kiosk-text-muted: rgba(255, 255, 255, 0.5);
   --kiosk-text-dim: rgba(255, 255, 255, 0.3);
 }
 
@@ -24,35 +23,34 @@
 }
 
 /* ── Header ── */
-.kiosk-scan__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.kiosk-scan__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
 .kiosk-scan__back-btn {
-  display: flex; align-items: center; gap: 10px; padding: 14px 28px; border-radius: 18px;
-  border: 1.5px solid rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.06); backdrop-filter: blur(16px);
-  color: var(--kiosk-white); font-family: 'Prompt', sans-serif; font-size: 18px; font-weight: 600;
-  transition: all 0.2s; ion-icon { font-size: 22px; }
-  &:active { background: rgba(255, 255, 255, 0.1); transform: scale(0.97); }
+  display: flex; align-items: center; gap: 10px; padding: 16px 32px; border-radius: 20px;
+  border: 1.5px solid var(--kiosk-border); background: var(--kiosk-surface); backdrop-filter: blur(16px);
+  color: var(--kiosk-text); font-family: 'Prompt', sans-serif; font-size: 18px; font-weight: 600;
+  transition: all 0.2s; ion-icon { font-size: 22px; } &:active { background: rgba(255, 255, 255, 0.08); transform: scale(0.97); }
 }
 .kiosk-scan__brand {
-  display: flex; align-items: center; gap: 10px; font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 900;
-  background: linear-gradient(135deg, #FFFFFF 40%, #60A5FA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  display: flex; align-items: center; gap: 10px; font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 800; color: var(--kiosk-text-muted);
+  ion-icon { font-size: 24px; color: var(--kiosk-accent); }
 }
 
 /* ── Scanning Body ── */
 .kiosk-scan__body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: kFadeU 0.5s ease forwards; }
 .kiosk-scan__instructions { text-align: center; margin-bottom: 40px; }
-.kiosk-scan__title { font-family: 'Prompt', sans-serif; font-size: 46px; font-weight: 700; color: var(--kiosk-white); margin: 0 0 16px; }
+.kiosk-scan__title { font-family: 'Prompt', sans-serif; font-size: 46px; font-weight: 700; color: var(--kiosk-text); margin: 0 0 16px; }
 .kiosk-scan__subtitle { font-family: 'Prompt', sans-serif; font-size: 22px; font-weight: 400; color: var(--kiosk-text-muted); line-height: 1.6; }
 .kiosk-scan__subtitle-en { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 400; color: var(--kiosk-text-dim); margin-top: 10px; }
 
 /* ── Viewport ── */
 .kiosk-scan__viewport {
-  position: relative; width: 380px; height: 380px; border-radius: 32px; background: rgba(0, 0, 0, 0.5);
-  border: 1.5px solid rgba(255, 255, 255, 0.15); overflow: hidden; margin-bottom: 36px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 24px 60px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(0, 0, 0, 0.3);
+  position: relative; width: 380px; height: 380px; border-radius: 32px; background: rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--kiosk-border); overflow: hidden; margin-bottom: 36px;
+  box-shadow: 0 0 60px rgba(59, 130, 246, 0.08), inset 0 0 40px rgba(0, 0, 0, 0.3);
 }
 
 .scan-corner { position: absolute; width: 40px; height: 40px; z-index: 2; }
-.scan-corner::before, .scan-corner::after { content: ''; position: absolute; background: var(--kiosk-white); border-radius: 2px; }
+.scan-corner::before, .scan-corner::after { content: ''; position: absolute; background: var(--kiosk-accent); border-radius: 2px; }
 .scan-corner--tl { top: 16px; left: 16px; &::before { width: 40px; height: 4px; top: 0; left: 0; } &::after { width: 4px; height: 40px; top: 0; left: 0; } }
 .scan-corner--tr { top: 16px; right: 16px; &::before { width: 40px; height: 4px; top: 0; right: 0; } &::after { width: 4px; height: 40px; top: 0; right: 0; } }
 .scan-corner--bl { bottom: 16px; left: 16px; &::before { width: 40px; height: 4px; bottom: 0; left: 0; } &::after { width: 4px; height: 40px; bottom: 0; left: 0; } }
@@ -60,30 +58,29 @@
 
 .scan-line {
   position: absolute; left: 20px; right: 20px; height: 3px; border-radius: 2px;
-  background: linear-gradient(90deg, transparent 0%, var(--kiosk-accent-light) 20%, var(--kiosk-white) 50%, var(--kiosk-accent-light) 80%, transparent 100%);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); z-index: 1;
+  background: linear-gradient(90deg, transparent 0%, var(--kiosk-accent) 20%, var(--kiosk-accent) 80%, transparent 100%);
+  box-shadow: 0 0 16px var(--kiosk-accent-glow); z-index: 1;
 }
 
 .scan-camera-placeholder {
   position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-  color: var(--kiosk-text-dim); ion-icon { font-size: 56px; opacity: 0.35; } p { font-size: 16px; opacity: 0.45; }
+  color: var(--kiosk-text-dim); ion-icon { font-size: 56px; opacity: 0.4; } p { font-size: 16px; opacity: 0.5; }
 }
 
 .kiosk-scan__demo-btn {
   display: flex; align-items: center; gap: 12px; padding: 18px 40px; border-radius: 20px; border: 1.5px dashed rgba(255, 255, 255, 0.15);
   background: rgba(255, 255, 255, 0.03); color: var(--kiosk-text-muted); font-size: 16px; cursor: pointer;
-  transition: all 0.2s; ion-icon { font-size: 22px; color: var(--kiosk-accent-light); }
-  &:active { transform: scale(0.97); background: rgba(255, 255, 255, 0.06); }
+  transition: all 0.2s; ion-icon { font-size: 22px; color: var(--kiosk-accent); } &:active { transform: scale(0.97); }
 }
 
 /* ── Result States ── */
-.kiosk-scan__guest-name { font-size: 32px; font-weight: 700; color: var(--kiosk-white); margin: 8px 0 4px; }
+.kiosk-scan__guest-name { font-size: 32px; font-weight: 700; color: var(--kiosk-text); margin: 8px 0 4px; }
 .kiosk-scan__guest-purpose { font-size: 18px; color: var(--kiosk-text-muted); margin-bottom: 32px; }
 .kiosk-scan__gate-msg {
   display: flex; align-items: center; gap: 12px; padding: 18px 40px; border-radius: 20px;
-  background: rgba(255, 255, 255, 0.07); border: 1.5px solid rgba(255, 255, 255, 0.2);
-  ion-icon { font-size: 28px; color: var(--kiosk-white); animation: gatePulse 1s ease-in-out infinite; }
-  span { font-size: 22px; font-weight: 600; color: var(--kiosk-white); }
+  background: linear-gradient(135deg, rgba(0, 229, 160, 0.12), rgba(0, 229, 160, 0.04)); border: 1.5px solid rgba(0, 229, 160, 0.25);
+  ion-icon { font-size: 28px; color: var(--kiosk-accent); animation: gatePulse 1s ease-in-out infinite; }
+  span { font-size: 22px; font-weight: 600; color: var(--kiosk-accent); }
 }
 
 /* ── Error ── */
@@ -97,10 +94,8 @@
 .kiosk-scan__error-msg { font-size: 20px; color: var(--kiosk-text-muted); margin: 8px 0 32px; line-height: 1.6; max-width: 480px; }
 .kiosk-scan__retry-btn {
   display: flex; align-items: center; gap: 12px; padding: 20px 48px; border-radius: 22px; border: none;
-  background: var(--kiosk-white); color: #060D1A; font-size: 20px; font-weight: 700;
-  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.25); transition: all 0.2s;
-  ion-icon { color: var(--kiosk-accent); }
-  &:active { transform: scale(0.96); }
+  background: linear-gradient(135deg, var(--kiosk-blue), #2563EB); color: white; font-size: 20px; font-weight: 700;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3); transition: all 0.2s; &:active { transform: scale(0.96); }
 }
 
 .kiosk-scan__redirect-hint { font-size: 14px; color: var(--kiosk-text-dim); margin-top: 24px; }

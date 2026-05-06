@@ -33,12 +33,12 @@ export class KioskLayoutComponent implements OnInit, OnDestroy {
     document.body.classList.add('kiosk-mode');
     this.idle.start();
 
-    this.warningSub = this.idle.showWarning$.subscribe((v: boolean) => {
+    this.warningSub = this.idle.showWarning$.subscribe((v) => {
       this.showWarning = v;
       this.cdr.detectChanges();
     });
 
-    this.countdownSub = this.idle.countdown$.subscribe((v: number) => {
+    this.countdownSub = this.idle.countdown$.subscribe((v) => {
       this.countdown = v;
       this.cdr.detectChanges();
     });
